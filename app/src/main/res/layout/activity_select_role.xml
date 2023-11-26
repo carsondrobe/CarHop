@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".SelectRoleActivity">
 
     <TextView
         android:id="@+id/activity_main_tv_SelectRole"
@@ -35,23 +35,23 @@
         android:id="@+id/activity_main_img_driver"
         android:layout_width="150dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
         android:layout_marginBottom="328dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/activity_main_img_person"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_tv_driver"
         app:srcCompat="@drawable/img_driver" />
 
     <ImageView
         android:id="@+id/activity_main_img_person"
-        android:layout_width="0dp"
+        android:layout_width="152dp"
         android:layout_height="0dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginEnd="23dp"
         android:layout_marginBottom="328dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/activity_main_img_driver"
         app:layout_constraintTop_toBottomOf="@+id/activity_main_tv_passenger"
         app:srcCompat="@drawable/img_person" />
 
