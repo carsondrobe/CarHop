@@ -85,11 +85,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Test"
         tools:layout_editor_absoluteX="53dp"
         tools:layout_editor_absoluteY="133dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="28dp"
+        android:text="abiTest1"
+        app:layout_constraintBottom_toTopOf="@+id/activity_main_tv_driver"
+        app:layout_constraintEnd_toStartOf="@+id/view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
