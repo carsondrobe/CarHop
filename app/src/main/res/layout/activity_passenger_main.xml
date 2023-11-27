@@ -18,8 +18,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/passenger_main_tv_RideHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="28dp"
+        android:text="Ride History:"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/passenger_main_tv_NoPrevRides"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/passenger_main_tv_NoPrevRides"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="No Previous Rides"
+        android:textAlignment="center"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/passenger_main_btn_BookRideSmall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <View
-        android:id="@+id/horizontalLine1"
+        android:id="@+id/passenger_main_horizontalLine1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="14dp"
@@ -28,54 +52,77 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <View
-        android:id="@+id/horizontalLine2"
+        android:id="@+id/passenger_main_horizontalLine2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="276dp"
+        android:layout_marginBottom="15dp"
         android:background="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintBottom_toTopOf="@+id/passenger_main_tv_RideHistory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/backArrow"
+        android:id="@+id/passenger_main_ic_backArrow"
         android:layout_width="32dp"
         android:layout_height="30dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/horizontalLine1"
+        app:layout_constraintBottom_toTopOf="@+id/passenger_main_horizontalLine1"
         app:layout_constraintEnd_toStartOf="@+id/passenger_main_tv_AccountInfo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <TextView
-        android:id="@+id/NoRidesSelected"
+        android:id="@+id/passenger_main_tv_NoRidesSelected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginBottom="25dp"
+
         android:text="No Rides Selected..."
         android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/passenger_main_btn_BookRideMain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalLine1" />
+        app:layout_constraintTop_toBottomOf="@+id/passenger_main_horizontalLine1" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button"
+        android:id="@+id/passenger_main_btn_BookRideMain"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="187dp"
         android:layout_height="68dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="93dp"
-        android:backgroundTint="@color/buttonBackgroundColor"
+        android:layout_marginBottom="136dp"
+        android:backgroundTint="@color/white"
         android:text="Book Ride"
-        android:textColor="@color/buttonTextColor"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:cornerRadius="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/horizontalLine2"
+        app:layout_constraintBottom_toTopOf="@+id/passenger_main_horizontalLine2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:strokeColor="@color/buttonStrokeColor"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/passenger_main_btn_BookRideSmall"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="145dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="112dp"
+        android:backgroundTint="@color/white"
+        android:text="Book Ride"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
