@@ -2,8 +2,5 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="buttonStrokeColor">#2196F3</color>
-    <color name="buttonBackgroundColor">#FFFFFF</color>
-    <color name="buttonTextColor">#2196F3</color>
 
 </resources>
