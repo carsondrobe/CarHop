@@ -10,6 +10,6 @@ public class DriverBookTripActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_book_trip);
-        // To do...
+        //TODO...
     }
 }
