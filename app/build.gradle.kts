@@ -9,6 +9,10 @@ android {
     namespace = "com.example.carpoolapp"
     compileSdk = 34
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "com.example.carpoolapp"
         minSdk = 24
@@ -17,6 +21,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+
+        buildConfigField("String", "API_KEY_NAME", "\"${properties.getProperty("apikey")}\"")
+
 
     }
 
