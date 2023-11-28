@@ -23,7 +23,7 @@ public class PassengerBookRideActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_book_ride);
-        Places.initialize(getApplicationContext(), getString(R.string.apikey));
+        //Places.initialize(getApplicationContext(), API_KEY);
 
         // Initialize the Pickup AutocompleteSupportFragments
         AutocompleteSupportFragment pickupAutocompleteSupportFragment = (AutocompleteSupportFragment)
