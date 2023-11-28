@@ -63,8 +63,8 @@
 
     <ImageView
         android:id="@+id/passenger_main_ic_backArrow"
-        android:layout_width="32dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/passenger_main_horizontalLine1"
