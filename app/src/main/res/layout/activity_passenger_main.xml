@@ -125,4 +125,6 @@
         app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
 
+    <include layout="@layout/nav_bar"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
