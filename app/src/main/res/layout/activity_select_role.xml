@@ -84,4 +84,6 @@
         app:layout_constraintStart_toEndOf="@+id/view"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <include layout="@layout/nav_bar"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

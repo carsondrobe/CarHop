@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/baseline_arrow_back_24"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/book"
+        android:icon="@drawable/img_driver"
+        android:title="Change Booking" />
+
+    <item
+        android:id="@+id/finances"
+        android:icon="@drawable/img_person"
+        android:title="Finances" />
+</menu>
