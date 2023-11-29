@@ -3,15 +3,19 @@ package com.example.carpoolapp;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -63,8 +67,8 @@ public class DriverMap extends FragmentActivity implements OnMapReadyCallback {
         googleMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
-    private void showTrack(String from, String to){
-        try{
+    private void showTrack(String from, String to) {
+        try {
             Uri uri = Uri.parse("https://www.google.com/maps/dir/" + from + "/" + to);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             intent.setPackage("com.google.android.apps.maps");
@@ -76,23 +80,32 @@ public class DriverMap extends FragmentActivity implements OnMapReadyCallback {
         }
     }
 
-    public void showDatePickerDialog(View v) {
-        // Get current date
+    public void showDateTimeDialog(View view) {
         final Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-        // Create a DatePickerDialog and show it
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-                // Set the selected date to the TextView
-                String selectedDate = day + "/" + (month + 1) + "/" + year;
-                datePicker.setText("Selected Date: " + selectedDate);
-            }
-        }, year, month, dayOfMonth);
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        datePickerDialog.show();
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm");
+
+                        datePicker.setText(simpleDateFormat.format(calendar.getTime()));
+                    }
+                };
+
+                new TimePickerDialog(DriverMap.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
+            }
+        };
+
+        new DatePickerDialog(DriverMap.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+
     }
 }

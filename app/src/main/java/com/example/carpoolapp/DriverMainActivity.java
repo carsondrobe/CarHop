@@ -39,7 +39,7 @@ public class DriverMainActivity extends AppCompatActivity {
 
     // Launch Book Ride Activity Method for readability
     void startBookTripActivity(){
-        Intent intent = new Intent(DriverMainActivity.this, DriverBookTripActivity.class);
+        Intent intent = new Intent(DriverMainActivity.this, DriverMap.class);
         startActivity(intent);
     }
 }
