@@ -1,5 +1,6 @@
 package com.example.carpoolapp;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,16 +46,22 @@ public class SelectRoleActivity extends AppCompatActivity {
 
         initializeNavBar();
     }
+
+    Integer lock = 0;   // currently using to stop infinite loop in nav bar TODO: fix
     private void initializeNavBar(){
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Intent intent;
-            int selected = bottomNavigationView.getSelectedItemId();
+//            int selected = bottomNavigationView.getSelectedItemId();
+            int selected = lock;
             Log.d("NavBar", "itemID: "+item.getItemId()+" selected: "+selected);
-            if (item.getItemId() == selected)
+            if (selected != 0) {
+                Log.d("NavBar", "Already selected: " + item.getItemId());
                 return false;
-            bottomNavigationView.setSelectedItemId(item.getItemId());
+            }
+            bottomNavigationView.setSelectedItemId(1); // not actually an error, and will be changed soon
+            lock = 1;
             selected = bottomNavigationView.getSelectedItemId();
             Log.d("NavBar", "Now selected: "+selected);
             switch (item.getItemId()){
