@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 public class DriverMainActivity extends AppCompatActivity {
 
+    // Create variables
     ImageView backArrow;
     Button bookTrip;
     @Override
