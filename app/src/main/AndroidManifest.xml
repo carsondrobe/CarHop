@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CarpoolApp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".PassengerSelectDriverActivity"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -28,10 +30,10 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value= "${apikey}" />
+            android:value="${apikey}" />
 
         <activity
-            android:name=".DriverMap"
+            android:name=".DriverMapActivity"
             android:exported="false"
             android:label="@string/title_activity_driver_map" />
         <activity
@@ -55,10 +57,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${apikey}" />
 
-        <activity
-            android:name=".DriverMap"
-            android:exported="false"
-            android:label="@string/title_activity_driver_map" />
         <activity
             android:name=".DriverBookTripActivity"
             android:exported="false" />

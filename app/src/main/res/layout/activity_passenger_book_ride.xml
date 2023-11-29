@@ -189,5 +189,15 @@
         app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
 
+    <TextView
+        android:id="@+id/activity_passenger_book_ride_tv_selectedDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_passenger_book_ride_btn_select_driver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_passenger_book_ride_cv_when" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
