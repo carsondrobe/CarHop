@@ -4,9 +4,9 @@ import android.icu.util.Calendar;
 import android.location.Address;
 
 public class Trip {
-    private Address pickup;
-    private Address destination;
-    private Calendar dateTime;
+    private String pickup;
+    private String destination;
+    private String dateTime;
     private String name;
     private int numPassengers;
 
@@ -15,7 +15,7 @@ public class Trip {
         // Default constructor
     }
 
-    public Trip(Address pickup, Address destination, Calendar dateTime, String name, int numPassengers) {
+    public Trip(String pickup, String destination, String dateTime, String name, int numPassengers) {
         this.pickup = pickup;
         this.destination = destination;
         this.dateTime = dateTime;
@@ -24,27 +24,27 @@ public class Trip {
     }
 
     // Getter and setter methods
-    public Address getPickup() {
+    public String getPickup() {
         return pickup;
     }
 
-    public void setPickup(Address pickup) {
+    public void setPickup(String pickup) {
         this.pickup = pickup;
     }
 
-    public Address getDestination() {
+    public String getDestination() {
         return destination;
     }
 
-    public void setDestination(Address destination) {
+    public void setDestination(String destination) {
         this.destination = destination;
     }
 
-    public Calendar getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Calendar dateTime) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 
