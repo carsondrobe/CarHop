@@ -1,17 +1,24 @@
 package com.example.carpoolapp;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,13 +26,22 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.example.carpoolapp.databinding.ActivityDriverMapBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DatabaseError;
+
+import java.util.ArrayList;
 
 public class DriverMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityDriverMapBinding binding;
-    private Button filter_btn;
+    private ImageView filter_btn;
     private TextView datePicker;
+
+    private ArrayList<String> trips;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +72,16 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
         LatLng kelowna = new LatLng(49.8801, -119.4436);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(kelowna));
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
+
+        retrieveRecordsFromDatabase();
     }
 
-    private void showTrack(String from, String to){
-        try{
+    private void showTrack(String from, String to) {
+        try {
             Uri uri = Uri.parse("https://www.google.com/maps/dir/" + from + "/" + to);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             intent.setPackage("com.google.android.apps.maps");
@@ -76,23 +93,57 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         }
     }
 
-    public void showDatePickerDialog(View v) {
-        // Get current date
+    public void showDateTimeDialog(View view) {
         final Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-        // Create a DatePickerDialog and show it
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-                // Set the selected date to the TextView
-                String selectedDate = day + "/" + (month + 1) + "/" + year;
-                datePicker.setText("Selected Date: " + selectedDate);
-            }
-        }, year, month, dayOfMonth);
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        datePickerDialog.show();
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm");
+
+                        datePicker.setText(simpleDateFormat.format(calendar.getTime()));
+                    }
+                };
+
+                new TimePickerDialog(DriverMapActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
+            }
+        };
+
+        new DatePickerDialog(DriverMapActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+
+    }
+    private void retrieveRecordsFromDatabase() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                trips.clear();
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Trip trip = snapshot.getValue(Trip.class);
+                    if (trip != null) {
+                        String record = trip.getPickup() + ", " + trip.getDestination() + ", " + trip.getDateTime() + ", " + trip.getName() +
+                                ", " + trip.getNumPassengers();
+                        trips.add(record);
+                        showTrack(trip.getPickup().toString(), trip.getDestination().toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(DriverMapActivity.this, "Failed to retrieve records from Firebase", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
