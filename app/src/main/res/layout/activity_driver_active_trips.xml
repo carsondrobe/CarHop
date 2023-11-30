@@ -19,30 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/driver_active_trips_tv_FinancialSummary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="28dp"
-        android:text="Financial Summary"
-        android:textAlignment="center"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/driver_active_trips_tv_CurrentEarnings"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/driver_active_trips_tv_CurrentEarnings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="175dp"
-        android:text="You are currently earning $0/month"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <View
         android:id="@+id/driver_active_trips_horizontalLine1"
         android:layout_width="match_parent"
@@ -52,24 +28,14 @@
         app:layout_constraintTop_toBottomOf="@+id/driver_active_trips_tv_AccountInfo"
         tools:layout_editor_absoluteX="0dp" />
 
-    <View
-        android:id="@+id/driver_active_trips_horizontalLine2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="15dp"
-        android:background="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/driver_active_trips_tv_FinancialSummary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/driver_active_trips_btn_BookANewTrip"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="160dp"
         android:layout_height="65dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/white"
         android:clickable="true"
         android:focusable="true"
@@ -77,7 +43,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:cornerRadius="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/driver_active_trips_horizontalLine2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
@@ -88,8 +54,8 @@
         android:layout_width="160dp"
         android:layout_height="65dp"
         android:layout_gravity="center"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/white"
         android:clickable="true"
         android:focusable="true"
@@ -97,7 +63,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:cornerRadius="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/driver_active_trips_horizontalLine2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
@@ -183,9 +149,9 @@
 
     <ImageView
         android:id="@+id/driver_active_trips_selected_ic_blackDot1"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/driver_active_trips_selected_tv_Trip1"
@@ -193,9 +159,9 @@
 
     <ImageView
         android:id="@+id/driver_active_trips_selected_ic_blackDot3"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -204,9 +170,9 @@
 
     <ImageView
         android:id="@+id/driver_active_trips_selected_ic_blackDot2"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
