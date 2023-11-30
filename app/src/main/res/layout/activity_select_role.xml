@@ -6,84 +6,67 @@
     android:layout_height="match_parent"
     tools:context=".SelectRoleActivity">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/nav_bar" />
+
+
     <TextView
-        android:id="@+id/activity_main_tv_SelectRole"
+        android:id="@+id/activity_select_role_tv_welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:layout_marginBottom="29dp"
-        android:text="Select Your Role:"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        app:layout_constraintEnd_toStartOf="@+id/view"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginBottom="2dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/activity_main_tv_passenger"
-        app:layout_constraintStart_toEndOf="@+id/activity_main_tv_driver"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main_tv_SelectRole" />
-
-    <ImageView
-        android:id="@+id/activity_main_img_driver"
-        android:layout_width="150dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="328dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/activity_main_img_person"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main_tv_driver"
-        app:srcCompat="@drawable/img_driver" />
-
-    <ImageView
-        android:id="@+id/activity_main_img_person"
-        android:layout_width="152dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="328dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="100dp"
+        android:letterSpacing="0.05"
+        android:shadowColor="#000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="3"
+        android:text="RideMe"
+        android:textColor="@color/black"
+        android:textSize="60sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/activity_main_img_driver"
-        app:layout_constraintTop_toBottomOf="@+id/activity_main_tv_passenger"
-        app:srcCompat="@drawable/img_person" />
+        app:layout_constraintStart_toStartOf="@+id/include"
+        app:layout_constraintTop_toTopOf="@+id/include" />
 
-    <TextView
-        android:id="@+id/activity_main_tv_driver"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/activity_select_role_btn_passengerMode"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="238dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="51dp"
-        android:text="Driver"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/activity_main_img_driver"
-        app:layout_constraintEnd_toStartOf="@+id/view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/activity_main_tv_passenger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="238dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="51dp"
-        android:text="Passenger"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/activity_main_img_person"
+        android:layout_height="86dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Enter Passenger Mode"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/view"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_select_role_tv_welcomeText"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
 
-    <include layout="@layout/nav_bar"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/activity_select_role_btn_driverMode"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="86dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Enter Driver Mode"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_select_role_btn_passengerMode"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
