@@ -1,5 +1,6 @@
 package com.example.carpoolapp;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.DatePickerDialog;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,6 +26,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.example.carpoolapp.databinding.ActivityDriverMapBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DatabaseError;
+
+import java.util.ArrayList;
 
 public class DriverMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -31,6 +40,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     private ActivityDriverMapBinding binding;
     private ImageView filter_btn;
     private TextView datePicker;
+
+    private ArrayList<String> trips;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +72,12 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
         LatLng kelowna = new LatLng(49.8801, -119.4436);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(kelowna));
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
+
+        retrieveRecordsFromDatabase();
     }
 
     private void showTrack(String from, String to) {
@@ -108,5 +120,30 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
         new DatePickerDialog(DriverMapActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
 
+    }
+    private void retrieveRecordsFromDatabase() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                trips.clear();
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Trip trip = snapshot.getValue(Trip.class);
+                    if (trip != null) {
+                        String record = trip.getPickup() + ", " + trip.getDestination() + ", " + trip.getDateTime() + ", " + trip.getName() +
+                                ", " + trip.getNumPassengers();
+                        trips.add(record);
+                        showTrack(trip.getPickup().toString(), trip.getDestination().toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(DriverMapActivity.this, "Failed to retrieve records from Firebase", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
