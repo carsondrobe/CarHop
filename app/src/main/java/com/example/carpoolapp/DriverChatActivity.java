@@ -3,14 +3,12 @@ package com.example.carpoolapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,7 +21,6 @@ public class DriverChatActivity extends AppCompatActivity {
     String[] responses = {"Hello!", "Yeah, just myself.", "Great, see you soon!"};
     int counter = 0;
     TextView passengerTyping;
-    ImageView backArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +30,6 @@ public class DriverChatActivity extends AppCompatActivity {
         messageBox = findViewById(R.id.driver_chat_et_messageBox);
         send = findViewById(R.id.driver_chat_btn_send);
         msgContainer = findViewById(R.id.driver_chat_messageContainer);
-        backArrow = findViewById(R.id.driver_chat_ic_backArrow);
-        // Go to DriverActiveTripsActivity if back arrow is clicked
-        backArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(DriverChatActivity.this, DriverActiveTripsActivity.class);
-                startActivity(i);
-            }
-        });
         // When send button is clicked, generate response
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,13 +51,8 @@ public class DriverChatActivity extends AppCompatActivity {
                         msgContainer.removeView(passengerTyping);
                         // Display passenger response
                         displayMessage("PassengerName: " + responses[counter] + "\n", false);
-                        // Increment counter if possible
-                        if(counter+1 < responses.length) {
-                            counter++;
-                        } else {
-                            // Set counter to 0
-                            counter = 0;
-                        }
+                        // Increment counter
+                        counter++;
                     }
                 }, 4000);
                 // Clear message box field
@@ -78,7 +61,6 @@ public class DriverChatActivity extends AppCompatActivity {
         });
     }
 
-    // Function to create a textview that is added to the message container
     TextView displayMessage(String message, boolean user) {
         // Create new textview with message
         TextView tv = new TextView(this);
