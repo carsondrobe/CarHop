@@ -127,7 +127,9 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                trips.clear();
+                if(trips != null) {
+                    trips.clear();
+                }
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Trip trip = snapshot.getValue(Trip.class);
