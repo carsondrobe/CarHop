@@ -9,13 +9,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class SelectRoleActivity extends AppCompatActivity {
-    ImageView passengerButton;
+    Button passengerButton;
     // TODO: Driver
-    ImageView driverButton;
+    Button driverButton;
 
     // NavBar
     NavigationBarView bottomNavigationView;
@@ -24,8 +25,8 @@ public class SelectRoleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_role);
         // Initialize Buttons
-        passengerButton = findViewById(R.id.activity_main_img_person);
-        driverButton = findViewById(R.id.activity_main_img_driver);
+        passengerButton = findViewById(R.id.activity_select_role_btn_passengerMode);
+        driverButton = findViewById(R.id.activity_select_role_btn_driverMode);
 
         // On Passenger Button Click, Launch PassengerMainActivity
         passengerButton.setOnClickListener(new View.OnClickListener() {
