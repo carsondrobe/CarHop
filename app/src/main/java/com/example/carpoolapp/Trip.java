@@ -22,6 +22,12 @@ public class Trip {
         this.name = name;
         this.numPassengers = numPassengers;
     }
+    public Trip(String pickup, String destination, String dateTime, int numPassengers) {
+        this.pickup = pickup;
+        this.destination = destination;
+        this.dateTime = dateTime;
+        this.numPassengers = numPassengers;
+    }
 
     // Getter and setter methods
     public String getPickup() {
