@@ -77,7 +77,7 @@ public class SelectRoleActivity extends AppCompatActivity {
                     break;
                 case R.id.finances:
                     Log.d("NavBar", "to 'finances': ");
-                    intent = new Intent(SelectRoleActivity.this, DriverMainActivity.class);
+                    intent = new Intent(SelectRoleActivity.this, UsageSummary.class);
                     startActivity(intent);
                     break;
             }
