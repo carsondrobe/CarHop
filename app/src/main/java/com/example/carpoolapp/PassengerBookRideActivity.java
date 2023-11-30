@@ -31,6 +31,8 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -49,6 +51,8 @@ public class PassengerBookRideActivity extends AppCompatActivity {
     private String date;
     private String time;
     private TextView textViewSelectedDate;
+    private DatabaseReference tripsRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +90,9 @@ public class PassengerBookRideActivity extends AppCompatActivity {
         radioButtonReserve = findViewById(R.id.activity_passenger_book_ride_rbtn_reserve);
         selectDriverButton = findViewById(R.id.activity_passenger_book_ride_btn_select_driver);
         textViewSelectedDate = findViewById(R.id.activity_passenger_book_ride_tv_selectedDate);
+
+        //initialize database
+        tripsRef = FirebaseDatabase.getInstance().getReference().child("trips");
     }
 
     private void initializePlacesApi() {
@@ -271,6 +278,20 @@ public class PassengerBookRideActivity extends AppCompatActivity {
             intent.putExtra("destinationPlaceId", destination.getId());
             intent.putExtra("date", date);
             intent.putExtra("time", time);
+
+            //Write data to the database under the tripsRef
+            Trip trip = new Trip(/* insert values */);
+
+            tripsRef.push().setValue(trip)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(PassengerBookRideActivity.this, "Data written to Firebase", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        String errorMessage = e.getMessage();
+                        Log.e("Firebase", "Failed to write data: " + errorMessage);
+                        Toast.makeText(PassengerBookRideActivity.this, "Failed to write data to Firebase", Toast.LENGTH_SHORT).show();
+                    });
 
             // Start the PassengerSelectDriverActivity with the Intent
             startActivity(intent);
