@@ -108,7 +108,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
 
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm");
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
                         datePicker.setText(simpleDateFormat.format(calendar.getTime()));
                     }
@@ -136,6 +136,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                     if (trip != null) {
                         String record = trip.getPickup() + ", " + trip.getDestination() + ", " + trip.getDateTime() + ", " + trip.getName() +
                                 ", " + trip.getNumPassengers();
+                        // TODO: You need to initialize the ArrayList before adding or else NullPointerException
                         trips.add(record);
                         showTrack(trip.getPickup().toString(), trip.getDestination().toString());
                     }
