@@ -280,7 +280,7 @@ public class PassengerBookRideActivity extends AppCompatActivity {
             intent.putExtra("time", time);
 
             //Write data to the database under the tripsRef
-            Trip trip = new Trip(/* insert values */);
+            Trip trip = new Trip(pickup.getName(), destination.getName(), date, time, numPassengers);
 
             tripsRef.push().setValue(trip)
                     .addOnSuccessListener(aVoid -> {
