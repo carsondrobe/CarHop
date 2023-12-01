@@ -5,40 +5,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PassengerSelectDriverActivity">
+
     <View
         android:id="@+id/passenger_main_horizontalLine1"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginTop="12dp"
         android:background="@android:color/black"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="68dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passenger_main_tv_AccountInfo2" />
+
     <View
         android:id="@+id/passenger_main_horizontalLine2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginTop="68dp"
         android:background="@android:color/black"
-        tools:layout_editor_absoluteY="524dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_passenger_book_ride_cv_pickup" />
 
     <ImageView
         android:id="@+id/passenger_main_ic_backArrow2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/baseline_arrow_back_24"
-        tools:layout_editor_absoluteX="21dp"
-        tools:layout_editor_absoluteY="26dp" />
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/passenger_main_horizontalLine1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <TextView
         android:id="@+id/passenger_main_tv_AccountInfo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Select a Driver"
         android:textAlignment="center"
         android:textSize="30dp"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/activity_passenger_book_ride_cv_pickup"
+        android:id="@+id/driver1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,15 +64,16 @@
             android:padding="16dp">
 
             <ImageView
-                android:id="@+id/activity_passenger_book_ride_iv_driver_image"
-                android:layout_width="64dp"
+                android:id="@+id/civic"
+                android:layout_width="wrap_content"
                 android:layout_height="64dp"
                 android:layout_marginBottom="8dp"
+                android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_driver" />
+                android:src="@drawable/honda_civic" />
 
             <TextView
-                android:id="@+id/activity_passenger_book_ride_tv_driver_name"
+                android:id="@+id/name1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
@@ -70,7 +82,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/activity_passenger_book_ride_tv_driver_rating"
+                android:id="@+id/rating1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
@@ -79,7 +91,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/activity_passenger_book_ride_tv_estimated_arrival"
+                android:id="@+id/eta1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -107,18 +119,18 @@
 
             <ImageView
                 android:id="@+id/activity_passenger_book_ride_iv_driver_image"
-                android:layout_width="64dp"
+                android:layout_width="150dp"
                 android:layout_height="64dp"
                 android:layout_marginBottom="8dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_driver" />
+                android:src="@drawable/toyota_corolla" />
 
             <TextView
                 android:id="@+id/activity_passenger_book_ride_tv_driver_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:text="John Deere"
+                android:text="Davis Franklin"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
