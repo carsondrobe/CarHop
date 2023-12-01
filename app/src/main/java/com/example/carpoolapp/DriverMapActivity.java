@@ -12,6 +12,7 @@ import android.icu.util.Calendar;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,8 +28,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.example.carpoolapp.databinding.ActivityDriverMapBinding;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -37,7 +40,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DatabaseError;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -48,9 +56,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     private ActivityDriverMapBinding binding;
     private ImageView filter_btn;
     private TextView datePicker;
-
     private ArrayList<Trip> trips;
-    private Polyline routePolyline;
+    ArrayList markerPoints= new ArrayList();
     private static final String TAG = "YourActivity";
 
     @Override
@@ -92,42 +99,10 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         googleMap.getUiSettings().setZoomControlsEnabled(true);
 
         retrieveRecordsFromDatabase();
-    }
-    private void drawRoute(String from, String to) {
-        LatLng fromLatLng = getLatLngFromAddress(from);
-        LatLng toLatLng = getLatLngFromAddress(to);
 
-        if (fromLatLng != null && toLatLng != null) {
-            PolylineOptions polylineOptions = new PolylineOptions();
-            polylineOptions.add(fromLatLng);
-            polylineOptions.add(toLatLng);
-//            polylineOptions.color(getResources().getColor(R.color.blue)); // Set color for the route line
-            polylineOptions.width(8); // Set width of the route line
-
-            routePolyline = mMap.addPolyline(polylineOptions);
-
-            // Zoom camera to show the route
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(fromLatLng, 12f));
-        }
-    }
-    private LatLng getLatLngFromAddress(String address) {
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        LatLng location = null;
-
-        try {
-            List<Address> addressList = geocoder.getFromLocationName(address, 1);
-            if (addressList != null && !addressList.isEmpty()) {
-                Address addressLocation = addressList.get(0);
-                location = new LatLng(addressLocation.getLatitude(), addressLocation.getLongitude());
-            }
-        } catch (IOException | IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-
-        return location;
     }
 
-//    private void showTrack(String from, String to) {
+//    private void getDirections(String from, String to) {
 //        try {
 //            Uri uri = Uri.parse("https://www.google.com/maps/dir/" + from + "/" + to);
 //            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -183,7 +158,17 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                     if (trip != null) {
                         Trip record = new Trip(trip.getPickup(), trip.getDestination(), trip.getDate(), trip.getTime(), trip.getNumPassengers());
                         trips.add(record);
-                        drawRoute(trip.getPickup().toString(), trip.getDestination().toString());
+
+                        LatLng startLatLng = getLocationFromAddress(trip.getPickup());
+                        LatLng endLatLng = getLocationFromAddress(trip.getDestination());
+                        if (startLatLng != null && endLatLng != null) {
+                            // Add a polyline to Google Map for this route
+                            Polyline polyline = mMap.addPolyline(new PolylineOptions()
+                                    .clickable(true)
+                                    .add(startLatLng, endLatLng));
+                            mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pick up"));
+                            mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
+                        }
                     }
                 }
             }
@@ -194,4 +179,28 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
             }
         });
     }
+    private LatLng getLocationFromAddress(String strAddress) {
+        Geocoder geocoder = new Geocoder(this); // Use 'this' as the context
+        List<Address> addressList;
+
+        try {
+            addressList = geocoder.getFromLocationName(strAddress, 1);
+            if (addressList != null && addressList.size() > 0) {
+                Address address = addressList.get(0);
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+
+                Log.d("Geocoding", "Coordinates for " + strAddress + ": " + latLng.toString());
+
+                return latLng;
+            } else {
+                // Geocoding failed
+                Log.d("GeocodingTest", "Geocoding failed for " + strAddress);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("GeocodingTest", "Geocoding exception for " + strAddress + ": " + e.getMessage());
+        }
+        return null;
+    }
+
 }
