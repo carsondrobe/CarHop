@@ -3,13 +3,10 @@ package com.example.carpoolapp;
 import android.icu.util.Calendar;
 import android.location.Address;
 
-import java.time.LocalDateTime;
-
 public class Trip {
     private String pickup;
     private String destination;
-    private String date; // String to store date
-    private String time; // String to store time
+    private String dateTime;
     private String name;
     private int numPassengers;
 
@@ -18,12 +15,17 @@ public class Trip {
         // Default constructor
     }
 
-    public Trip(String pickup, String destination, String date, String time/*, String name*/, int numPassengers) {
+    public Trip(String pickup, String destination, String dateTime, String name, int numPassengers) {
         this.pickup = pickup;
         this.destination = destination;
-        this.date = date;
-        this.time = time;
-//        this.name = name;
+        this.dateTime = dateTime;
+        this.name = name;
+        this.numPassengers = numPassengers;
+    }
+    public Trip(String pickup, String destination, String dateTime, int numPassengers) {
+        this.pickup = pickup;
+        this.destination = destination;
+        this.dateTime = dateTime;
         this.numPassengers = numPassengers;
     }
 
@@ -44,20 +46,12 @@ public class Trip {
         this.destination = destination;
     }
 
-    public String getDate() {
-        return date;
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     public String getName() {
@@ -76,4 +70,3 @@ public class Trip {
         this.numPassengers = numPassengers;
     }
 }
-

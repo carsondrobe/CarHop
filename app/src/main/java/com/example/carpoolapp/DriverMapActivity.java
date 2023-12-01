@@ -130,7 +130,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
 
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm");
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
                         datePicker.setText(simpleDateFormat.format(calendar.getTime()));
                     }
@@ -156,7 +156,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Trip trip = snapshot.getValue(Trip.class);
                     if (trip != null) {
-                        Trip record = new Trip(trip.getPickup(), trip.getDestination(), trip.getDate(), trip.getTime(), trip.getNumPassengers());
+                        Trip record = new Trip(trip.getPickup(), trip.getDestination(), trip.getDateTime(), trip.getNumPassengers());
                         trips.add(record);
 
                         LatLng startLatLng = getLocationFromAddress(trip.getPickup());
