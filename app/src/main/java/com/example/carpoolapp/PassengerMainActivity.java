@@ -47,6 +47,7 @@ public class PassengerMainActivity extends AppCompatActivity {
     // Launch Book Ride Activity Method for readability
     void startBookRideActivity(){
         Intent intent = new Intent(PassengerMainActivity.this, PassengerBookRideActivity.class);
+//        Intent intent = new Intent(PassengerMainActivity.this, PassengerChatActivity.class);
         startActivity(intent);
     }
 }

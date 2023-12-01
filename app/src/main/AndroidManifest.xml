@@ -15,6 +15,9 @@
         android:theme="@style/Theme.CarpoolApp"
         tools:targetApi="31">
         <activity
+            android:name=".PassengerChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".DriverChatActivity"
             android:exported="false" />
         <activity
