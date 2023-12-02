@@ -281,9 +281,8 @@ public class PassengerBookRideActivity extends AppCompatActivity {
             intent.putExtra("destinationPlaceId", destination.getId());
             intent.putExtra("date", date);
             intent.putExtra("time", time);
+
             String dateTime = date + " " + time;
-
-
 
             //Write data to the database under the tripsRef
             Trip trip = new Trip();
@@ -292,19 +291,23 @@ public class PassengerBookRideActivity extends AppCompatActivity {
             trip.setPickup(pickup.getAddress());
             trip.setNumPassengers(numPassengers);
 
-            tripsRef.push().setValue(trip)
+            DatabaseReference newTripRef = tripsRef.push();
+
+            newTripRef.setValue(trip)
                     .addOnSuccessListener(aVoid -> {
+                        // Retrieve the key (database ID) of the new child
+                        String recordKey = newTripRef.getKey();
+                        intent.putExtra("recordKey", recordKey);
                         Toast.makeText(PassengerBookRideActivity.this, "Data written to Firebase", Toast.LENGTH_SHORT).show();
 
+                        // Start the PassengerSelectDriverActivity with the Intent
+                        startActivity(intent);
                     })
                     .addOnFailureListener(e -> {
                         String errorMessage = e.getMessage();
                         Log.e("Firebase", "Failed to write data: " + errorMessage);
                         Toast.makeText(PassengerBookRideActivity.this, "Failed to write data to Firebase", Toast.LENGTH_SHORT).show();
                     });
-
-            // Start the PassengerSelectDriverActivity with the Intent
-            startActivity(intent);
         } else {
 
             Toast.makeText(this, "Please Fill All Information", Toast.LENGTH_SHORT).show();
