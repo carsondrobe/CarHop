@@ -177,12 +177,12 @@
         android:backgroundTint="@color/white"
         android:clickable="true"
         android:focusable="true"
-        android:text="Select a Driver"
+        android:text="Select Driver"
         android:textColor="@color/black"
+        android:layout_marginTop="10dp"
 
         android:textSize="18sp"
         app:cornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_passenger_book_ride_cv_when"
@@ -198,6 +198,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activity_passenger_book_ride_cv_when" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/nav_bar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

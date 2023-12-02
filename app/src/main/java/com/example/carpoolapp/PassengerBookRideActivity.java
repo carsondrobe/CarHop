@@ -31,6 +31,7 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -73,6 +74,8 @@ public class PassengerBookRideActivity extends AppCompatActivity {
 
         // Set listener for reserve RadioButton
         setReserveRadioButtonListener();
+
+        initializeNavBar();
 
         // When driver button onClick is pressed
         selectDriverButton.setOnClickListener(new View.OnClickListener() {
@@ -299,5 +302,27 @@ public class PassengerBookRideActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Please Fill All Information", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void initializeNavBar(){
+        NavigationBarView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Intent intent;
+            switch (item.getItemId()){
+                case R.id.home:
+                    intent = new Intent(PassengerBookRideActivity.this, SelectRoleActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.book:
+                    break;
+                case R.id.finances:
+                    intent = new Intent(PassengerBookRideActivity.this, UsageSummary.class);
+                    intent.putExtra("source", "passenger");
+                    startActivity(intent);
+                    break;
+            }
+            return true;
+        });
     }
 }

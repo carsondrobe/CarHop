@@ -19,7 +19,7 @@ public class SelectRoleActivity extends AppCompatActivity {
     Button driverButton;
 
     // NavBar
-    NavigationBarView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,47 +44,5 @@ public class SelectRoleActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-        initializeNavBar();
-    }
-
-    Integer lock = 0;   // currently using to stop infinite loop in nav bar TODO: fix
-    private void initializeNavBar(){
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            Intent intent;
-//            int selected = bottomNavigationView.getSelectedItemId();
-            int selected = lock;
-            Log.d("NavBar", "itemID: "+item.getItemId()+" selected: "+selected);
-            if (selected != 0) {
-                Log.d("NavBar", "Already selected: " + item.getItemId());
-                return false;
-            }
-            bottomNavigationView.setSelectedItemId(1); // not actually an error, and will be changed soon
-            lock = 1;
-            selected = bottomNavigationView.getSelectedItemId();
-            Log.d("NavBar", "Now selected: "+selected);
-            switch (item.getItemId()){
-                case R.id.home:
-                    Log.d("NavBar", "to home: ");
-                    intent = new Intent(SelectRoleActivity.this, SelectRoleActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.book:
-                    Log.d("NavBar", "to booking: ");
-                    intent = new Intent(SelectRoleActivity.this, PassengerMainActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.finances:
-                    Log.d("NavBar", "to 'finances': ");
-                    intent = new Intent(SelectRoleActivity.this, UsageSummary.class);
-                    startActivity(intent);
-                    break;
-            }
-            return true;
-        });
-        bottomNavigationView.setSelectedItemId(0);
-
     }
 }
