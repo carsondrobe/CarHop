@@ -24,11 +24,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.navigation.NavigationBarView;
@@ -37,6 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public class PassengerBookRideActivity extends AppCompatActivity {
@@ -116,7 +119,7 @@ public class PassengerBookRideActivity extends AppCompatActivity {
         autocompleteFragment.setHint(hint);
 
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS));
 
         // Set a bias for Kelowna
 
@@ -282,22 +285,32 @@ public class PassengerBookRideActivity extends AppCompatActivity {
             intent.putExtra("date", date);
             intent.putExtra("time", time);
 
-            //Write data to the database under the tripsRef
-            Trip trip = new Trip(/* insert values */);
+            String dateTime = date + " " + time;
 
-            tripsRef.push().setValue(trip)
+            //Write data to the database under the tripsRef
+            Trip trip = new Trip();
+            trip.setDateTime(dateTime);
+            trip.setDestination(destination.getAddress());
+            trip.setPickup(pickup.getAddress());
+            trip.setNumPassengers(numPassengers);
+
+            DatabaseReference newTripRef = tripsRef.push();
+
+            newTripRef.setValue(trip)
                     .addOnSuccessListener(aVoid -> {
+                        // Retrieve the key (database ID) of the new child
+                        String recordKey = newTripRef.getKey();
+                        intent.putExtra("recordKey", recordKey);
                         Toast.makeText(PassengerBookRideActivity.this, "Data written to Firebase", Toast.LENGTH_SHORT).show();
-                        finish();
+
+                        // Start the PassengerSelectDriverActivity with the Intent
+                        startActivity(intent);
                     })
                     .addOnFailureListener(e -> {
                         String errorMessage = e.getMessage();
                         Log.e("Firebase", "Failed to write data: " + errorMessage);
                         Toast.makeText(PassengerBookRideActivity.this, "Failed to write data to Firebase", Toast.LENGTH_SHORT).show();
                     });
-
-            // Start the PassengerSelectDriverActivity with the Intent
-            startActivity(intent);
         } else {
 
             Toast.makeText(this, "Please Fill All Information", Toast.LENGTH_SHORT).show();
