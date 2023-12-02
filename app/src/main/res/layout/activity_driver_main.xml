@@ -88,9 +88,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/driver_main_horizontalLine1" />
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/nav_bar"
-        tools:layout_editor_absoluteX="0dp" />
+  <include layout="@layout/nav_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

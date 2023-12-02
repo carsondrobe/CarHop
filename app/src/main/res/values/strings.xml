@@ -7,4 +7,14 @@
         <item>4</item>
     </string-array>
     <string name="title_activity_driver_map">DriverMap</string>
+    <string name="passenger_generic_stats">
+        Days used: <b>83</b>\n
+        Total trips: <b>35</b>\n
+        Total distance travelled: <b>734.4</b>\n
+        Total cost: <b>$358.83</b>\n
+        Estimated cost if you\'d used a taxi*: <b>$1,836</b>\n
+        Estimated savings: <b>$1,477.17</b>\n
+        Most common Driver: <b>John Doe</b>\n
+        Most common Destination: <b>St. Charles rd</b>\n
+    </string>
 </resources>

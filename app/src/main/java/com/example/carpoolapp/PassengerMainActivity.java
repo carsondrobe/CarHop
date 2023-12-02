@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.google.android.material.navigation.NavigationBarView;
 
 public class PassengerMainActivity extends AppCompatActivity {
     ImageView backArrow;
@@ -42,6 +45,8 @@ public class PassengerMainActivity extends AppCompatActivity {
                 startBookRideActivity();
             }
         });
+
+        initializeNavBar();
     }
 
     // Launch Book Ride Activity Method for readability
@@ -49,5 +54,25 @@ public class PassengerMainActivity extends AppCompatActivity {
         Intent intent = new Intent(PassengerMainActivity.this, PassengerBookRideActivity.class);
 //        Intent intent = new Intent(PassengerMainActivity.this, PassengerChatActivity.class);
         startActivity(intent);
+    }
+    private void initializeNavBar(){
+        NavigationBarView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Intent intent;
+            switch (item.getItemId()){
+                case R.id.home:
+                    break;
+                case R.id.book:
+                    intent = new Intent(PassengerMainActivity.this, PassengerBookRideActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.finances:
+                    intent = new Intent(PassengerMainActivity.this, UsageSummary.class);
+                    intent.putExtra("source", "passenger");
+                    startActivity(intent);
+                    break;
+            }
+            return true;
+        });
     }
 }

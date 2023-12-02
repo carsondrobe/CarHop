@@ -6,4 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".DriverBookTripActivity">
 
+    <include layout="@layout/nav_bar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

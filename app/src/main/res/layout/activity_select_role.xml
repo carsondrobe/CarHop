@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".SelectRoleActivity">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/nav_bar" />
-
-
     <TextView
         android:id="@+id/activity_select_role_tv_welcomeText"
         android:layout_width="wrap_content"
