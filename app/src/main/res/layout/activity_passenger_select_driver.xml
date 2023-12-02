@@ -6,38 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".PassengerSelectDriverActivity">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/activity_passenger_book_ride_btn_select_driver4"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="187dp"
+        android:layout_height="68dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="72dp"
+        android:backgroundTint="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Confirm"
+
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
+
     <View
-        android:id="@+id/passenger_main_horizontalLine1"
+        android:id="@+id/passenger_select_driver_horizontalLine"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginTop="12dp"
         android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passenger_main_tv_AccountInfo2" />
-
-    <View
-        android:id="@+id/passenger_main_horizontalLine2"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="68dp"
-        android:background="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_passenger_book_ride_cv_pickup" />
+        app:layout_constraintTop_toBottomOf="@+id/passenger_select_driver_tv_selectDriver" />
 
     <ImageView
-        android:id="@+id/passenger_main_ic_backArrow2"
+        android:id="@+id/passenger_select_driver_ic_backArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="21dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/passenger_main_horizontalLine1"
+        app:layout_constraintBottom_toTopOf="@+id/passenger_select_driver_horizontalLine"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <TextView
-        android:id="@+id/passenger_main_tv_AccountInfo2"
+        android:id="@+id/passenger_select_driver_tv_selectDriver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -48,111 +60,164 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/driver1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="463dp"
+        android:fillViewport="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passenger_main_horizontalLine1">
+        app:layout_constraintTop_toBottomOf="@+id/passenger_select_driver_horizontalLine">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/civic"
-                android:layout_width="wrap_content"
-                android:layout_height="64dp"
-                android:layout_marginBottom="8dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/honda_civic" />
-
-            <TextView
-                android:id="@+id/name1"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/passenger_select_driver_cv_driver1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="John Doe"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:clickable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passenger_select_driver_horizontalLine">
 
-            <TextView
-                android:id="@+id/rating1"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/passenger_select_driver_img_civic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="64dp"
+                        android:layout_marginBottom="8dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/honda_civic" />
+
+                    <TextView
+                        android:id="@+id/passenger_select_driver_name1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="John Doe"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/passenger_select_driver_tv_rating1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Driver Rating: 4.5"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/passenger_select_driver_tv_eta1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Estimated Arrival: 5 minutes"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/passenger_select_driver_btn_select1"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="Select"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:cornerRadius="8dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/passenger_select_driver_cv_driver2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Driver Rating: 4.5"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:clickable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passenger_select_driver_horizontalLine">
 
-            <TextView
-                android:id="@+id/eta1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Estimated Arrival: 5 minutes"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/passenger_select_driver_img_corolla"
+                        android:layout_width="150dp"
+                        android:layout_height="64dp"
+                        android:layout_marginBottom="8dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/toyota_corolla" />
+
+                    <TextView
+                        android:id="@+id/passenger_select_driver_tv_drivername2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Davis Franklin"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/passenger_select_driver_tv_driverRating2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Driver Rating: 4.1"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/passenger_select_driver_tv_eta2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Estimated Arrival: 8 minutes"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/passenger_select_driver_btn_select2"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="Select"
+
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:cornerRadius="8dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/activity_passenger_book_ride_cv_pickup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passenger_main_horizontalLine1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <ImageView
-                android:id="@+id/activity_passenger_book_ride_iv_driver_image"
-                android:layout_width="150dp"
-                android:layout_height="64dp"
-                android:layout_marginBottom="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/toyota_corolla" />
-
-            <TextView
-                android:id="@+id/activity_passenger_book_ride_tv_driver_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Davis Franklin"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/activity_passenger_book_ride_tv_driver_rating"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Driver Rating: 4.1"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/activity_passenger_book_ride_tv_estimated_arrival"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Estimated Arrival: 8 minutes"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
