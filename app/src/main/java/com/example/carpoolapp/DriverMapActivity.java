@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.ParseException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -47,6 +49,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -166,6 +169,13 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                             Polyline polyline = mMap.addPolyline(new PolylineOptions()
                                     .clickable(true)
                                     .add(startLatLng, endLatLng));
+                            mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
+                                @Override
+                                public void onPolylineClick(Polyline polyline) {
+                                    // Show the pop-up dialog when polyline is clicked
+                                    showPopupDialog(trip.getPickup(), trip.getDestination(), trip.getNumPassengers(), trip.getDateTime());
+                                }
+                            });
                             mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pick up"));
                             mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
                         }
@@ -201,6 +211,34 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
             Log.e("GeocodingTest", "Geocoding exception for " + strAddress + ": " + e.getMessage());
         }
         return null;
+    }
+    private void showPopupDialog(String pickup, String destination, int numPassengers, String dateTime) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.driver_map_popup);
+
+        TextView pickupTextView = dialog.findViewById(R.id.pickupTextView);
+        TextView destinationTextView = dialog.findViewById(R.id.destinationTextView);
+        TextView passengersTextView = dialog.findViewById(R.id.passengersTextView);
+        TextView dateTextView = dialog.findViewById(R.id.dateTextView);
+        Button bookRideButton = dialog.findViewById(R.id.bookRideButton);
+
+        pickupTextView.setText("From: \n" + pickup);
+        destinationTextView.setText("To: \n" + destination);
+        passengersTextView.setText("Passengers: " + numPassengers);
+        dateTextView.setText("Date & Time: " + dateTime);
+
+        bookRideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Implement action for booking the ride
+                // This could involve initiating a booking process or navigating to a booking screen
+                // You can put your logic here
+                Toast.makeText(getApplicationContext(), "Booking ride...", Toast.LENGTH_SHORT).show();
+                dialog.dismiss(); // Dismiss the dialog after action is performed
+            }
+        });
+
+        dialog.show();
     }
 
 }
