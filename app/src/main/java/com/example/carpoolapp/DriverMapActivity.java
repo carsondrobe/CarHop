@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.ParseException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -47,6 +49,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -57,8 +60,9 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     private ImageView filter_btn;
     private TextView datePicker;
     private ArrayList<Trip> trips;
-    ArrayList markerPoints= new ArrayList();
+    private int selectedYear, selectedMonth, selectedDay, selectedHour, selectedMinute;
     private static final String TAG = "YourActivity";
+    private boolean filter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,24 +128,31 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
+                selectedYear = year;
+                selectedMonth = month;
+                selectedDay = dayOfMonth;
+
                 TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
 
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                        selectedHour = hourOfDay;
+                        selectedMinute = minute;
 
-                        datePicker.setText(simpleDateFormat.format(calendar.getTime()));
+                        filter = true;
+                        mMap.clear();
+                        retrieveRecordsFromDatabase();
                     }
                 };
 
-                new TimePickerDialog(DriverMapActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
+                new TimePickerDialog(DriverMapActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
             }
         };
 
         new DatePickerDialog(DriverMapActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-
+        filter = true;
     }
     private void retrieveRecordsFromDatabase() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("trips");
@@ -161,13 +172,75 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
                         LatLng startLatLng = getLocationFromAddress(trip.getPickup());
                         LatLng endLatLng = getLocationFromAddress(trip.getDestination());
-                        if (startLatLng != null && endLatLng != null) {
-                            // Add a polyline to Google Map for this route
-                            Polyline polyline = mMap.addPolyline(new PolylineOptions()
-                                    .clickable(true)
-                                    .add(startLatLng, endLatLng));
-                            mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pick up"));
-                            mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+                        try {
+                            Date parsedDate = dateFormat.parse(trip.getDateTime());
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTime(parsedDate);
+
+                            int year = calendar.get(Calendar.YEAR);
+                            int month = calendar.get(Calendar.MONTH);
+                            int day = calendar.get(Calendar.DAY_OF_MONTH);
+                            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                            int minute = calendar.get(Calendar.MINUTE);
+
+                            if (startLatLng != null && endLatLng != null) {
+                                if (filter) {
+                                    Log.d("Filter", "Selected Year: " + selectedYear + " | Year: " + year);
+                                    Log.d("Filter", "Selected Month: " + selectedMonth + " | Month: " + month);
+                                    Log.d("Filter", "Selected Day: " + selectedDay + " | Day: " + day);
+                                    Log.d("Filter", "Selected Hour: " + selectedHour + " | Hour: " + hour);
+                                    Log.d("Filter", "Selected Minute: " + selectedMinute + " | Minute: " + minute);
+
+                                    if (selectedYear == year && selectedMonth == month && selectedDay == day &&
+                                            selectedHour == hour && (selectedMinute <= minute + 15 && selectedMinute >= minute - 15)) {
+                                        Polyline polyline = mMap.addPolyline(new PolylineOptions()
+                                                .clickable(true)
+                                                .add(startLatLng, endLatLng));
+
+                                        // Associate the polyline with the trip details and add the click listener
+                                        polyline.setTag(record); // record is the current Trip object
+                                        mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
+                                            @Override
+                                            public void onPolylineClick(Polyline polyline) {
+                                                // Retrieve the associated Trip object when a polyline is clicked
+                                                Trip clickedTrip = (Trip) polyline.getTag();
+                                                if (clickedTrip != null) {
+                                                    showPopupDialog(clickedTrip.getPickup(), clickedTrip.getDestination(),
+                                                            clickedTrip.getNumPassengers(), clickedTrip.getDateTime());
+                                                }
+                                            }
+                                        });
+
+                                        mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pick up"));
+                                        mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
+                                    }
+                                } else {
+                                    Polyline polyline = mMap.addPolyline(new PolylineOptions()
+                                            .clickable(true)
+                                            .add(startLatLng, endLatLng));
+
+                                    // Associate the polyline with the trip details and add the click listener
+                                    polyline.setTag(record); // record is the current Trip object
+                                    mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
+                                        @Override
+                                        public void onPolylineClick(Polyline polyline) {
+                                            // Retrieve the associated Trip object when a polyline is clicked
+                                            Trip clickedTrip = (Trip) polyline.getTag();
+                                            if (clickedTrip != null) {
+                                                showPopupDialog(clickedTrip.getPickup(), clickedTrip.getDestination(),
+                                                        clickedTrip.getNumPassengers(), clickedTrip.getDateTime());
+                                            }
+                                        }
+                                    });
+
+                                    mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pick up"));
+                                    mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
+                                }
+                            }
+                        } catch (ParseException | java.text.ParseException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -202,5 +275,39 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         }
         return null;
     }
+    private void showPopupDialog(String pickup, String destination, int numPassengers, String dateTime) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.driver_map_popup);
 
+        TextView pickupTextView = dialog.findViewById(R.id.pickupTextView);
+        TextView destinationTextView = dialog.findViewById(R.id.destinationTextView);
+        TextView passengersTextView = dialog.findViewById(R.id.passengersTextView);
+        TextView dateTextView = dialog.findViewById(R.id.dateTextView);
+        Button bookRideButton = dialog.findViewById(R.id.bookRideButton);
+
+        pickupTextView.setText("From: \n" + pickup);
+        destinationTextView.setText("To: \n" + destination);
+        passengersTextView.setText("Number of Passengers: " + numPassengers);
+        dateTextView.setText("Date & Time: " + dateTime);
+
+        bookRideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DriverMapActivity.this, DriverTripsSelectedActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putInt("numPassengers", numPassengers);
+                bundle.putString("pickup", pickup);
+                bundle.putString("destination", destination);
+                bundle.putString("dateTime", dateTime);
+
+                intent.putExtras(bundle);
+                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "Booking ride...", Toast.LENGTH_SHORT).show();
+                dialog.dismiss(); // Dismiss the dialog after action is performed
+            }
+        });
+
+        dialog.show();
+    }
 }
