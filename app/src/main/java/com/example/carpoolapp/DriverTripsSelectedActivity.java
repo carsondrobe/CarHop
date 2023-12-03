@@ -33,9 +33,9 @@ public class DriverTripsSelectedActivity extends AppCompatActivity {
         trips = findViewById(R.id.selected_trips_text);
 
         trips.setText("From: " + pickup +
-                        "\nTo: " + destination +
-                        "\nNumber of Passengers: " + numPassengers +
-                        "\nDate & Time: " + dateTime);
+                        "\n\nTo: " + destination +
+                        "\n\nNumber of Passengers: " + numPassengers +
+                        "\n\nDate & Time: " + dateTime);
 
         // Initialize Buttons
         goBack = findViewById(R.id.driver_trips_selected_btn_goBack);
