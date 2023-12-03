@@ -30,7 +30,7 @@ public class DriverTripsSelectedActivity extends AppCompatActivity {
         String dateTime = bundle.getString("dateTime");
 
         // initialize and populate the trips text
-        trips = findViewById(R.id.driver_trips_selected_tv_Trip1);
+        trips = findViewById(R.id.selected_trips_text);
 
         trips.setText("From: " + pickup +
                         "\nTo: " + destination +

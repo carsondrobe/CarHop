@@ -141,9 +141,9 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                         selectedHour = hourOfDay;
                         selectedMinute = minute;
 
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-
-                        datePicker.setText(simpleDateFormat.format(calendar.getTime()));
+                        filter = true;
+                        mMap.clear();
+                        retrieveRecordsFromDatabase();
                     }
                 };
 
@@ -180,41 +180,61 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                             calendar.setTime(parsedDate);
 
                             int year = calendar.get(Calendar.YEAR);
-                            int month = calendar.get(Calendar.MONTH) + 1; // Month starts from 0
+                            int month = calendar.get(Calendar.MONTH);
                             int day = calendar.get(Calendar.DAY_OF_MONTH);
                             int hour = calendar.get(Calendar.HOUR_OF_DAY);
                             int minute = calendar.get(Calendar.MINUTE);
 
                             if (startLatLng != null && endLatLng != null) {
-                                if(filter == true) {
-                                    if (selectedYear == year && selectedMonth == month && selectedDay == day && selectedHour == hour
-                                            && selectedMinute == minute) {
-                                        // Add a polyline to Google Map for this route
+                                if (filter) {
+                                    Log.d("Filter", "Selected Year: " + selectedYear + " | Year: " + year);
+                                    Log.d("Filter", "Selected Month: " + selectedMonth + " | Month: " + month);
+                                    Log.d("Filter", "Selected Day: " + selectedDay + " | Day: " + day);
+                                    Log.d("Filter", "Selected Hour: " + selectedHour + " | Hour: " + hour);
+                                    Log.d("Filter", "Selected Minute: " + selectedMinute + " | Minute: " + minute);
+
+                                    if (selectedYear == year && selectedMonth == month && selectedDay == day &&
+                                            selectedHour == hour && (selectedMinute <= minute + 15 && selectedMinute >= minute - 15)) {
                                         Polyline polyline = mMap.addPolyline(new PolylineOptions()
                                                 .clickable(true)
                                                 .add(startLatLng, endLatLng));
+
+                                        // Associate the polyline with the trip details and add the click listener
+                                        polyline.setTag(record); // record is the current Trip object
                                         mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
                                             @Override
                                             public void onPolylineClick(Polyline polyline) {
-                                                // Show the pop-up dialog when polyline is clicked
-                                                showPopupDialog(trip.getPickup(), trip.getDestination(), trip.getNumPassengers(), trip.getDateTime());
+                                                // Retrieve the associated Trip object when a polyline is clicked
+                                                Trip clickedTrip = (Trip) polyline.getTag();
+                                                if (clickedTrip != null) {
+                                                    showPopupDialog(clickedTrip.getPickup(), clickedTrip.getDestination(),
+                                                            clickedTrip.getNumPassengers(), clickedTrip.getDateTime());
+                                                }
                                             }
                                         });
+
                                         mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pick up"));
                                         mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
                                     }
                                 } else {
-                                    // Add a polyline to Google Map for this route
                                     Polyline polyline = mMap.addPolyline(new PolylineOptions()
                                             .clickable(true)
                                             .add(startLatLng, endLatLng));
+
+                                    // Associate the polyline with the trip details and add the click listener
+                                    polyline.setTag(record); // record is the current Trip object
                                     mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
                                         @Override
                                         public void onPolylineClick(Polyline polyline) {
-                                            // Show the pop-up dialog when polyline is clicked
-                                            showPopupDialog(trip.getPickup(), trip.getDestination(), trip.getNumPassengers(), trip.getDateTime());
+                                            // Retrieve the associated Trip object when a polyline is clicked
+                                            Trip clickedTrip = (Trip) polyline.getTag();
+                                            if (clickedTrip != null) {
+                                                showPopupDialog(clickedTrip.getPickup(), clickedTrip.getDestination(),
+                                                        clickedTrip.getNumPassengers(), clickedTrip.getDateTime());
+                                            }
                                         }
                                     });
+
                                     mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pick up"));
                                     mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
                                 }
@@ -277,9 +297,9 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                 Bundle bundle = new Bundle();
 
                 bundle.putInt("numPassengers", numPassengers);
-                bundle.putString("pickupPlaceName", pickup);
-                bundle.putString("destinationPlaceName", destination);
-                bundle.putString("date & time", dateTime);
+                bundle.putString("pickup", pickup);
+                bundle.putString("destination", destination);
+                bundle.putString("dateTime", dateTime);
 
                 intent.putExtras(bundle);
                 startActivity(intent);

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/selected_trips_text"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DriverTripsSelectedActivity">
@@ -82,12 +83,11 @@
         app:layout_constraintTop_toBottomOf="@+id/driver_trips_selected_horizontalLine1" />
 
     <TextView
-        android:id="@+id/driver_trips_selected_tv_Trip1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/text_view_border"
-        android:textSize="18sp"
+        android:id="@+id/textView"
+        android:layout_width="358dp"
+        android:layout_height="81dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/driver_trips_selected_tv_TripsSelected" />
