@@ -60,8 +60,9 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     private ImageView filter_btn;
     private TextView datePicker;
     private ArrayList<Trip> trips;
-    ArrayList markerPoints= new ArrayList();
+    private int selectedYear, selectedMonth, selectedDay, selectedHour, selectedMinute;
     private static final String TAG = "YourActivity";
+    private boolean filter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,11 +128,18 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
+                selectedYear = year;
+                selectedMonth = month;
+                selectedDay = dayOfMonth;
+
                 TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
+
+                        selectedHour = hourOfDay;
+                        selectedMinute = minute;
 
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
@@ -139,12 +147,12 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                     }
                 };
 
-                new TimePickerDialog(DriverMapActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
+                new TimePickerDialog(DriverMapActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
             }
         };
 
         new DatePickerDialog(DriverMapActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-
+        filter = true;
     }
     private void retrieveRecordsFromDatabase() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("trips");
@@ -164,20 +172,55 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
                         LatLng startLatLng = getLocationFromAddress(trip.getPickup());
                         LatLng endLatLng = getLocationFromAddress(trip.getDestination());
-                        if (startLatLng != null && endLatLng != null) {
-                            // Add a polyline to Google Map for this route
-                            Polyline polyline = mMap.addPolyline(new PolylineOptions()
-                                    .clickable(true)
-                                    .add(startLatLng, endLatLng));
-                            mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
-                                @Override
-                                public void onPolylineClick(Polyline polyline) {
-                                    // Show the pop-up dialog when polyline is clicked
-                                    showPopupDialog(trip.getPickup(), trip.getDestination(), trip.getNumPassengers(), trip.getDateTime());
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+                        try {
+                            Date parsedDate = dateFormat.parse(trip.getDateTime());
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTime(parsedDate);
+
+                            int year = calendar.get(Calendar.YEAR);
+                            int month = calendar.get(Calendar.MONTH) + 1; // Month starts from 0
+                            int day = calendar.get(Calendar.DAY_OF_MONTH);
+                            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                            int minute = calendar.get(Calendar.MINUTE);
+
+                            if (startLatLng != null && endLatLng != null) {
+                                if(filter == true) {
+                                    if (selectedYear == year && selectedMonth == month && selectedDay == day && selectedHour == hour
+                                            && selectedMinute == minute) {
+                                        // Add a polyline to Google Map for this route
+                                        Polyline polyline = mMap.addPolyline(new PolylineOptions()
+                                                .clickable(true)
+                                                .add(startLatLng, endLatLng));
+                                        mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
+                                            @Override
+                                            public void onPolylineClick(Polyline polyline) {
+                                                // Show the pop-up dialog when polyline is clicked
+                                                showPopupDialog(trip.getPickup(), trip.getDestination(), trip.getNumPassengers(), trip.getDateTime());
+                                            }
+                                        });
+                                        mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pick up"));
+                                        mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
+                                    }
+                                } else {
+                                    // Add a polyline to Google Map for this route
+                                    Polyline polyline = mMap.addPolyline(new PolylineOptions()
+                                            .clickable(true)
+                                            .add(startLatLng, endLatLng));
+                                    mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
+                                        @Override
+                                        public void onPolylineClick(Polyline polyline) {
+                                            // Show the pop-up dialog when polyline is clicked
+                                            showPopupDialog(trip.getPickup(), trip.getDestination(), trip.getNumPassengers(), trip.getDateTime());
+                                        }
+                                    });
+                                    mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pick up"));
+                                    mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
                                 }
-                            });
-                            mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pick up"));
-                            mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
+                            }
+                        } catch (ParseException | java.text.ParseException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -224,15 +267,22 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
         pickupTextView.setText("From: \n" + pickup);
         destinationTextView.setText("To: \n" + destination);
-        passengersTextView.setText("Passengers: " + numPassengers);
+        passengersTextView.setText("Number of Passengers: " + numPassengers);
         dateTextView.setText("Date & Time: " + dateTime);
 
         bookRideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Implement action for booking the ride
-                // This could involve initiating a booking process or navigating to a booking screen
-                // You can put your logic here
+                Intent intent = new Intent(DriverMapActivity.this, DriverTripsSelectedActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putInt("numPassengers", numPassengers);
+                bundle.putString("pickupPlaceName", pickup);
+                bundle.putString("destinationPlaceName", destination);
+                bundle.putString("date & time", dateTime);
+
+                intent.putExtras(bundle);
+                startActivity(intent);
                 Toast.makeText(getApplicationContext(), "Booking ride...", Toast.LENGTH_SHORT).show();
                 dialog.dismiss(); // Dismiss the dialog after action is performed
             }
@@ -240,5 +290,4 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
         dialog.show();
     }
-
 }
