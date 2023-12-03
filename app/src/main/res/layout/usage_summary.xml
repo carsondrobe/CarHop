@@ -89,27 +89,47 @@
             android:text="Yearly" />
     </com.google.android.material.tabs.TabLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/usage_summary_viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="271dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/usage_summary_horizontalLine2"
-        app:layout_constraintTop_toBottomOf="@+id/usage_summary_tabLayout"
-        tools:layout_editor_absoluteX="1dp" />
 
-    <TextView
-        android:id="@+id/usage_summary_stats_details"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="530dp"
-        android:text="..."
-        android:textSize="24sp"
-        android:textStyle="bold"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="391dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:contentDescription="Graph"
+        app:layout_constraintTop_toBottomOf="@+id/usage_summary_tabLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/expenses_chart" />
+
+<!--    <androidx.viewpager2.widget.ViewPager2-->
+<!--        android:id="@+id/usage_summary_viewPager"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="271dp"-->
+<!--        android:layout_marginTop="1dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/usage_summary_horizontalLine2"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/usage_summary_tabLayout"-->
+<!--        tools:layout_editor_absoluteX="1dp">-->
+<!--</androidx.viewpager2.widget.ViewPager2>-->
 
     <include layout="@layout/nav_bar" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
+        android:layout_width="318dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-10dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:text="@string/passenger_generic_stats"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usage_summary_stats" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.android.material.navigation.NavigationBarView;
+
 public class DriverMainActivity extends AppCompatActivity {
 
     // Create variables
@@ -20,6 +22,7 @@ public class DriverMainActivity extends AppCompatActivity {
         // Initialize Buttons
         backArrow = findViewById(R.id.driver_main_ic_BackArrow);
         bookTrip = findViewById(R.id.driver_main_btn_BookANewTrip);
+        initializeNavBar();
 
         // Back to Main Menu onClick back arrow
         backArrow.setOnClickListener(new View.OnClickListener() {
@@ -43,5 +46,27 @@ public class DriverMainActivity extends AppCompatActivity {
         Intent intent = new Intent(DriverMainActivity.this, DriverMapActivity.class);
 //        Intent intent = new Intent(DriverMainActivity.this, DriverActiveTripsActivity.class);
         startActivity(intent);
+    }
+
+    private void initializeNavBar(){
+        NavigationBarView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Intent intent;
+            switch (item.getItemId()){
+                case R.id.home:
+                    break;
+                case R.id.book:
+                    intent = new Intent(DriverMainActivity.this, DriverBookTripActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.finances:
+                    intent = new Intent(DriverMainActivity.this, UsageSummary.class);
+                    intent.putExtra("source", "driver");
+                    startActivity(intent);
+                    break;
+            }
+            return true;
+        });
     }
 }
