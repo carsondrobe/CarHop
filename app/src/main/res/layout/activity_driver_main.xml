@@ -43,7 +43,7 @@
         android:id="@+id/driver_main_tv_NoTripsScheduled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="560dp"
         android:layout_marginBottom="91dp"
         android:text="No Trips Scheduled..."
         android:textSize="38dp"
