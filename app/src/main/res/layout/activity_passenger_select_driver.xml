@@ -76,7 +76,7 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/passenger_select_driver_cv_driver1"
+                android:id="@+id/afterBooked_cv_driver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -92,7 +92,7 @@
                     android:padding="16dp">
 
                     <ImageView
-                        android:id="@+id/passenger_select_driver_img_civic"
+                        android:id="@+id/afterBooked_img_civic"
                         android:layout_width="wrap_content"
                         android:layout_height="64dp"
                         android:layout_marginBottom="8dp"
@@ -101,7 +101,7 @@
                         android:src="@drawable/honda_civic" />
 
                     <TextView
-                        android:id="@+id/passenger_select_driver_name1"
+                        android:id="@+id/afterBooked_cardview_driverName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
@@ -110,7 +110,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/passenger_select_driver_tv_rating1"
+                        android:id="@+id/afterBooked_cv_driverRating"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
@@ -119,7 +119,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/passenger_select_driver_tv_eta1"
+                        android:id="@+id/afterBooked_cv_eta"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -128,7 +128,7 @@
                         android:textSize="16sp" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/passenger_select_driver_btn_select1"
+                        android:id="@+id/afterBooked_btn_chat"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

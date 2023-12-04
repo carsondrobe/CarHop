@@ -301,7 +301,7 @@ public class PassengerBookRideActivity extends AppCompatActivity {
                         // Retrieve the key (database ID) of the new child
                         String recordKey = newTripRef.getKey();
                         intent.putExtra("recordKey", recordKey);
-                        Toast.makeText(PassengerBookRideActivity.this, "Data written to Firebase", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PassengerBookRideActivity.this, "Searching for Drivers...", Toast.LENGTH_SHORT).show();
 
                         // Start the PassengerSelectDriverActivity with the Intent
                         startActivity(intent);
@@ -309,7 +309,7 @@ public class PassengerBookRideActivity extends AppCompatActivity {
                     .addOnFailureListener(e -> {
                         String errorMessage = e.getMessage();
                         Log.e("Firebase", "Failed to write data: " + errorMessage);
-                        Toast.makeText(PassengerBookRideActivity.this, "Failed to write data to Firebase", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PassengerBookRideActivity.this, "No Drivers Available", Toast.LENGTH_SHORT).show();
                     });
         } else {
 
