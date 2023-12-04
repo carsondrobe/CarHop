@@ -78,11 +78,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="160dp"
-        android:layout_marginBottom="25dp"
 
         android:text="No Rides Selected..."
         android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/passenger_main_btn_BookRideMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/afterBooked_horizontalLine" />
@@ -93,19 +91,19 @@
         android:layout_width="187dp"
         android:layout_height="68dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="136dp"
+        android:layout_marginTop="30dp"
         android:backgroundTint="@color/white"
+        android:clickable="true"
+        android:focusable="true"
         android:text="Book Ride"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:cornerRadius="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/passenger_main_horizontalLine2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passenger_main_tv_NoRidesSelected"
         app:strokeColor="@color/black"
-        app:strokeWidth="2dp"
-        android:clickable="true"
-        android:focusable="true"/>
+        app:strokeWidth="2dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/passenger_main_btn_BookRideSmall"
@@ -125,6 +123,9 @@
         app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
 
-    <include layout="@layout/nav_bar"/>
+    <include
+        layout="@layout/nav_bar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

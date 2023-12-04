@@ -48,6 +48,7 @@ public class PassengerBookRideActivity extends AppCompatActivity {
     private int numPassengers;
     private RadioGroup radioGroupWhen;
     private RadioButton radioButtonReserve;
+    private RadioButton radioButtonNow;
     private boolean reserve = false;
     private Place pickup;
     private Place destination;
@@ -96,6 +97,7 @@ public class PassengerBookRideActivity extends AppCompatActivity {
         radioButtonReserve = findViewById(R.id.activity_passenger_book_ride_rbtn_reserve);
         selectDriverButton = findViewById(R.id.activity_passenger_book_ride_btn_select_driver);
         textViewSelectedDate = findViewById(R.id.activity_passenger_book_ride_tv_selectedDate);
+        radioButtonNow = findViewById(R.id.activity_passenger_book_ride_rbtn_now);
 
         //initialize database
         tripsRef = FirebaseDatabase.getInstance().getReference().child("trips");
@@ -189,6 +191,7 @@ public class PassengerBookRideActivity extends AppCompatActivity {
                     reserve = true;
                     showDatePickerDialog();
                     showTimePickerDialog();
+                    selectDriverButton.setText("Reserve");
                 } else {
                     reserve = false;
                     Calendar calendar = Calendar.getInstance();
@@ -202,6 +205,7 @@ public class PassengerBookRideActivity extends AppCompatActivity {
                 }
             }
         });
+        radioButtonNow.setChecked(true);
     }
 
     private void updateSelectedReservationText() {
@@ -273,7 +277,12 @@ public class PassengerBookRideActivity extends AppCompatActivity {
         // Check if all fields are valid
         if (pickup != null && destination != null && date != null && time != null) {
             // Create an Intent to start the SelectedDriverActivity
-            Intent intent = new Intent(PassengerBookRideActivity.this, PassengerSelectDriverActivity.class);
+            Intent intent;
+            if (reserve == false)
+                intent = new Intent(PassengerBookRideActivity.this, PassengerSelectDriverActivity.class);
+            else{
+                intent = new Intent(PassengerBookRideActivity.this, PassengerAfterReservedMainActivity.class);
+            }
 
             // Bundle the data and add it as extras to the Intent
             intent.putExtra("numPassengers", numPassengers);
@@ -301,7 +310,10 @@ public class PassengerBookRideActivity extends AppCompatActivity {
                         // Retrieve the key (database ID) of the new child
                         String recordKey = newTripRef.getKey();
                         intent.putExtra("recordKey", recordKey);
-                        Toast.makeText(PassengerBookRideActivity.this, "Searching for Drivers...", Toast.LENGTH_SHORT).show();
+                        if(!reserve)
+                            Toast.makeText(PassengerBookRideActivity.this, "Searching for Drivers...", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(PassengerBookRideActivity.this, "Reserving Ride...", Toast.LENGTH_LONG).show();
 
                         // Start the PassengerSelectDriverActivity with the Intent
                         startActivity(intent);
@@ -309,7 +321,7 @@ public class PassengerBookRideActivity extends AppCompatActivity {
                     .addOnFailureListener(e -> {
                         String errorMessage = e.getMessage();
                         Log.e("Firebase", "Failed to write data: " + errorMessage);
-                        Toast.makeText(PassengerBookRideActivity.this, "No Drivers Available", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PassengerBookRideActivity.this, "No Drivers Available", Toast.LENGTH_LONG).show();
                     });
         } else {
 

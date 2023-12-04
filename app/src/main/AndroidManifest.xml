@@ -18,6 +18,9 @@
             android:name=".PassengerAfterBookedMainActivity"
             android:exported="false" />
         <activity
+            android:name=".PassengerAfterReservedMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".PassengerChatActivity"
             android:exported="false" />
         <activity
