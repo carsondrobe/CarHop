@@ -1,25 +1,18 @@
 package com.example.carpoolapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 public class PassengerSelectDriverActivity extends AppCompatActivity {
     DatabaseReference ref;
@@ -53,7 +46,7 @@ public class PassengerSelectDriverActivity extends AppCompatActivity {
         Log.d("PassengerSelectDriver", "date: " + date);
         Log.d("PassengerSelectDriver", "time: " + time);
 
-        MaterialButton btn1 = findViewById(R.id.passenger_select_driver_btn_select1);
+        MaterialButton btn1 = findViewById(R.id.afterBooked_btn_chat);
         MaterialButton btn2 = findViewById(R.id.passenger_select_driver_btn_select2);
 
 
@@ -91,14 +84,6 @@ public class PassengerSelectDriverActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
-
-
-
-
-
     }
 
     private void deleteRecordFromDatabase(String recordKey){
