@@ -26,10 +26,6 @@ public class UsageSummaryActivity extends AppCompatActivity {
 
     boolean isPassenger;
 
-    ViewPager2 mViewPager;
-
-    ViewPagerAdapter mViewPagerAdapter;
-
     int[] images = {R.drawable.weekly_expenses, R.drawable.monthly_expenses, R.drawable.monthly_expenses};
 
     ImageView graphImage;
@@ -43,7 +39,6 @@ public class UsageSummaryActivity extends AppCompatActivity {
         graphImage = findViewById(R.id.usage_summary_graph_image);
 
         initializeNavBar();
-        initializeTabs();
     }
     private void initializeNavBar(){
         NavigationBarView bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -72,79 +67,18 @@ public class UsageSummaryActivity extends AppCompatActivity {
         });
     }
 
-//    public class CollectionDemoFragment extends Fragment {
-//        // When requested, this adapter returns a DemoObjectFragment,
-//        // representing an object in the collection.
-//        DemoCollectionAdapter demoCollectionAdapter;
-//        ViewPager2 viewPager;
-//
-//        @Nullable
-//        @Override
-//        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-//                                 @Nullable Bundle savedInstanceState) {
-//            return inflater.inflate(R.layout.activity_usage_summary, container, false);
-//        }
-//
-//        @Override
-//        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//            TabLayout tabLayout = view.findViewById(R.id.usage_summary_tabLayout);
-//            new TabLayoutMediator(tabLayout, viewPager,
-//                    (tab, position) -> tab.setText("OBJECT " + (position + 1))
-//            ).attach();
-//        }
-//    }
-//
-//    public class DemoCollectionAdapter extends FragmentStateAdapter {
-//        public DemoCollectionAdapter(Fragment fragment) {
-//            super(fragment);
-//        }
-//
-//        @NonNull
-//        @Override
-//        public Fragment createFragment(int position) {
-//            // Return a NEW fragment instance in createFragment(int).
-//            Fragment fragment = new DemoObjectFragment();
-//            Bundle args = new Bundle();
-//            // The object is just an integer.
-//            args.putInt(DemoObjectFragment.ARG_OBJECT, position + 1);
-//            fragment.setArguments(args);
-//            return fragment;
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return 100;
-//        }
-//    }
-//
-//    // Instances of this class are fragments representing a single
-//// object in the collection.
-//    public class DemoObjectFragment extends Fragment {
-//        public static final String ARG_OBJECT = "object";
-//
-//        @Nullable
-//        @Override
-//        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-//                                 @Nullable Bundle savedInstanceState) {
-//            return inflater.inflate(R.layout.activity_usage_summary, container, false);
-//        }
-//
-//        @Override
-//        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//            Bundle args = getArguments();
-//            ((TextView) view.findViewById(android.R.id.text1))
-//                    .setText(Integer.toString(args.getInt(ARG_OBJECT)));
-//        }
-//    }
-
-    private void initializeTabs(){
-//        mViewPager = findViewById(R.id.usage_summary_viewPager);
-//        mViewPagerAdapter = new ViewPagerAdapter(this, images);
-//        mViewPager.setAdapter(mViewPagerAdapter);
-    }
-
     public void clickedWeekly(View view) {
         Log.d("ViewPagerAdapter", "clickedWeekly");
+        graphImage.setImageResource(R.drawable.weekly_expenses);
+    }
+
+    public void clickedMonthly(View view) {
+        Log.d("ViewPagerAdapter", "clickedWeekly");
         graphImage.setImageResource(R.drawable.monthly_expenses);
+    }
+
+    public void clickedYearly(View view) {
+        Log.d("ViewPagerAdapter", "clickedWeekly");
+        graphImage.setImageResource(R.drawable.yearly_expenses);
     }
 }

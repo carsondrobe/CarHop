@@ -61,7 +61,7 @@ public class DriverMainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.finances:
-                    intent = new Intent(DriverMainActivity.this, UsageSummary.class);
+                    intent = new Intent(DriverMainActivity.this, UsageSummaryActivity.class);
                     intent.putExtra("source", "driver");
                     startActivity(intent);
                     break;
