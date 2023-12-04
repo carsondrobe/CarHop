@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -330,7 +329,7 @@ public class PassengerBookRideActivity extends AppCompatActivity {
                 case R.id.book:
                     break;
                 case R.id.finances:
-                    intent = new Intent(PassengerBookRideActivity.this, UsageSummary.class);
+                    intent = new Intent(PassengerBookRideActivity.this, UsageSummaryActivity.class);
                     intent.putExtra("source", "passenger");
                     startActivity(intent);
                     break;

@@ -42,7 +42,7 @@
             android:name=".DriverTripsSelectedActivity"
             android:exported="false" />
         <activity
-            android:name=".UsageSummary"
+            android:name=".UsageSummaryActivity"
             android:exported="false" />
 
         <meta-data

@@ -66,7 +66,7 @@ public class PassengerMainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.finances:
-                    intent = new Intent(PassengerMainActivity.this, UsageSummary.class);
+                    intent = new Intent(PassengerMainActivity.this, UsageSummaryActivity.class);
                     intent.putExtra("source", "passenger");
                     startActivity(intent);
                     break;
