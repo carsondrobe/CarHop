@@ -20,16 +20,18 @@ import java.util.Date;
 import java.util.Locale;
 
 public class PassengerAfterBookedMainActivity extends AppCompatActivity {
-    DatabaseReference ref;
+
+    private DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_after_booked_main);
+
+        // Initialize Firebase Database reference
         ref = FirebaseDatabase.getInstance().getReference();
 
-        // Retrieve the data from the Intent
-
+        // Retrieve data from Intent
         Intent intent = getIntent();
         String driverName = intent.getStringExtra("driverName");
         float driverRating = intent.getFloatExtra("driverRating", 0.0f);
@@ -39,8 +41,7 @@ public class PassengerAfterBookedMainActivity extends AppCompatActivity {
         String timeBooked = intent.getStringExtra("timeBooked");
         String recordKey = intent.getStringExtra("recordKey");
 
-        // Now you have the data, you can use it as needed in your activity
-        // For example, update TextViews with the driver information
+        // Update TextViews with driver information
         TextView nameTextView = findViewById(R.id.afterBooked_cardview_driverName);
         TextView ratingTextView = findViewById(R.id.afterBooked_cv_driverRating);
         TextView etaTextView = findViewById(R.id.afterBooked_cv_eta);
@@ -54,52 +55,47 @@ public class PassengerAfterBookedMainActivity extends AppCompatActivity {
 
         // Calculate the arrival time and display
         try {
-            // Parse the timeBooked string to a Date object
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
             Date timeBookedDate = sdf.parse(timeBooked);
 
-            // Add driverETA and 10 minutes to the time
             Calendar cal = Calendar.getInstance();
             cal.setTime(timeBookedDate);
             cal.add(Calendar.MINUTE, driverETA + 10);
 
-            // Format the result back to a string
             String arrivalTime = sdf.format(cal.getTime());
-
-            // Set the text for bottomTextView
             bottomTextView.setText("Arriving at " + destinationPlaceName + " by " + arrivalTime);
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        // Set up onClickListener for the "Arrived" button
         MaterialButton arrived = findViewById(R.id.afterBooked_btn_arrived);
         arrived.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PassengerAfterBookedMainActivity.this, "Don't Forget to Rate your Driver!", Toast.LENGTH_SHORT).show();
+                // Display a toast message
+                Toast.makeText(PassengerAfterBookedMainActivity.this,
+                        "Don't Forget to Rate your Driver!", Toast.LENGTH_SHORT).show();
 
-                // Delete Record
+                // Delete the record from the database
                 deleteRecordFromDatabase(recordKey);
-                Intent intent = new Intent(PassengerAfterBookedMainActivity.this, PassengerMainActivity.class);
 
-                // Pass ride information to the main activity
+                // Start the main activity
+                Intent intent = new Intent(PassengerAfterBookedMainActivity.this, PassengerMainActivity.class);
                 intent.putExtra("driverName", driverName);
                 intent.putExtra("driverRating", driverRating);
                 intent.putExtra("destination", destinationPlaceName);
                 intent.putExtra("pickup", pickupPlaceName);
-
-                // Start the main activity
                 startActivity(intent);
                 finish();
             }
         });
-
     }
+
     private void deleteRecordFromDatabase(String recordKey){
-        // Get the reference to the specific record using the key
         DatabaseReference recordRef = ref.child("trips").child(recordKey);
 
-        // Remove the record from the database
         recordRef.removeValue()
                 .addOnSuccessListener(aVoid -> {
                     // Deletion successful
