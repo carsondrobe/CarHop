@@ -16,6 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class PassengerSelectDriverActivity extends AppCompatActivity {
     DatabaseReference ref;
+    DriverInfo selectedDriver;
+    MaterialButton confirm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +25,7 @@ public class PassengerSelectDriverActivity extends AppCompatActivity {
         final String apikey = BuildConfig.apikey;
         Places.initialize(getApplicationContext(), apikey);
         ref = FirebaseDatabase.getInstance().getReference();
+        confirm = findViewById(R.id.activity_passenger_book_ride_btn_select_driver4);
 
         Intent intent = getIntent();
         int numPassengers = intent.getIntExtra("numPassengers", 0);
@@ -49,6 +52,13 @@ public class PassengerSelectDriverActivity extends AppCompatActivity {
         MaterialButton btn1 = findViewById(R.id.afterBooked_btn_chat);
         MaterialButton btn2 = findViewById(R.id.passenger_select_driver_btn_select2);
 
+        DriverInfo driverInfo1 = new DriverInfo("John Doe",
+                4.5f,
+                5);
+        DriverInfo driverInfo2 = new DriverInfo("Davis Franklin",
+                4.1f,
+                8);
+
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +66,7 @@ public class PassengerSelectDriverActivity extends AppCompatActivity {
                 btn1.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
                 btn1.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
                 btn1.setText("SELECTED");
+                selectedDriver = driverInfo1;
 
                 btn2.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
                 btn2.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
@@ -69,6 +80,7 @@ public class PassengerSelectDriverActivity extends AppCompatActivity {
                 btn2.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
                 btn2.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
                 btn2.setText("SELECTED");
+                selectedDriver = driverInfo2;
 
                 btn1.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
                 btn1.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
@@ -84,6 +96,28 @@ public class PassengerSelectDriverActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent to start the next activity
+                Intent intent = new Intent(PassengerSelectDriverActivity.this, PassengerAfterBookedMainActivity.class);
+
+                // Pass the selected driver information as extras in the Intent
+                intent.putExtra("driverName", selectedDriver.getName());
+                intent.putExtra("driverRating", selectedDriver.getRating());
+                intent.putExtra("driverETA", selectedDriver.getEta());
+                intent.putExtra("destination", destinationPlaceName);
+                intent.putExtra("pickup", pickupPlaceName);
+                intent.putExtra("timeBooked", time);
+                intent.putExtra("recordKey", recordKey);
+
+                // Start the next activity
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     private void deleteRecordFromDatabase(String recordKey){
