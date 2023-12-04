@@ -78,6 +78,7 @@ public class PassengerAfterBookedMainActivity extends AppCompatActivity {
                 Toast.makeText(PassengerAfterBookedMainActivity.this,
                         "Don't Forget to Rate your Driver!", Toast.LENGTH_SHORT).show();
 
+
                 // Delete the record from the database
                 deleteRecordFromDatabase(recordKey);
 
