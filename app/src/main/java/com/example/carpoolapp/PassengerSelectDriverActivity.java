@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.libraries.places.api.Places;
 import com.google.android.material.button.MaterialButton;
@@ -101,6 +102,7 @@ public class PassengerSelectDriverActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create an Intent to start the next activity
+                Toast.makeText(PassengerSelectDriverActivity.this, "Connecting you with Driver...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(PassengerSelectDriverActivity.this, PassengerAfterBookedMainActivity.class);
 
                 // Pass the selected driver information as extras in the Intent

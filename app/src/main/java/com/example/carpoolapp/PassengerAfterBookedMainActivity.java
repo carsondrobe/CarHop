@@ -4,7 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,11 +20,13 @@ import java.util.Date;
 import java.util.Locale;
 
 public class PassengerAfterBookedMainActivity extends AppCompatActivity {
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_after_booked_main);
+        ref = FirebaseDatabase.getInstance().getReference();
 
         // Retrieve the data from the Intent
 
@@ -63,5 +72,43 @@ public class PassengerAfterBookedMainActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        MaterialButton arrived = findViewById(R.id.afterBooked_btn_arrived);
+        arrived.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PassengerAfterBookedMainActivity.this, "Don't Forget to Rate your Driver!", Toast.LENGTH_SHORT).show();
+
+                // Delete Record
+                deleteRecordFromDatabase(recordKey);
+                Intent intent = new Intent(PassengerAfterBookedMainActivity.this, PassengerMainActivity.class);
+
+                // Pass ride information to the main activity
+                intent.putExtra("driverName", driverName);
+                intent.putExtra("driverRating", driverRating);
+                intent.putExtra("destination", destinationPlaceName);
+                intent.putExtra("pickup", pickupPlaceName);
+
+                // Start the main activity
+                startActivity(intent);
+                finish();
+            }
+        });
+
+    }
+    private void deleteRecordFromDatabase(String recordKey){
+        // Get the reference to the specific record using the key
+        DatabaseReference recordRef = ref.child("trips").child(recordKey);
+
+        // Remove the record from the database
+        recordRef.removeValue()
+                .addOnSuccessListener(aVoid -> {
+                    // Deletion successful
+                    Log.d("PassengerSelectDriver", "Record deleted successfully");
+                })
+                .addOnFailureListener(e -> {
+                    // Handle the error
+                    String errorMessage = e.getMessage();
+                    Log.e("PassengerSelectDriver", "Failed to delete record: " + errorMessage);
+                });
     }
 }
