@@ -14,8 +14,6 @@ public class DriverBookTripActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_book_trip);
         initializeNavBar();
-        //TODO...
-
     }
     private void initializeNavBar(){
         NavigationBarView bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -30,7 +28,7 @@ public class DriverBookTripActivity extends AppCompatActivity {
                 case R.id.book:
                     break;
                 case R.id.finances:
-                    intent = new Intent(DriverBookTripActivity.this, UsageSummary.class);
+                    intent = new Intent(DriverBookTripActivity.this, UsageSummaryActivity.class);
                     intent.putExtra("source", "driver");
                     startActivity(intent);
                     break;

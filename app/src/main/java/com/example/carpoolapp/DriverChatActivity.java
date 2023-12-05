@@ -52,7 +52,7 @@ public class DriverChatActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        passengerTyping = displayMessage("PassengerName is typing..." + "\n", false);
+                        passengerTyping = displayMessage("Passenger is typing..." + "\n", false);
                     }
                 }, 1000);
                 // Display the passenger response after 3 seconds
@@ -62,7 +62,7 @@ public class DriverChatActivity extends AppCompatActivity {
                         // Delete passenger typing textview
                         msgContainer.removeView(passengerTyping);
                         // Display passenger response
-                        displayMessage("PassengerName: " + responses[counter] + "\n", false);
+                        displayMessage("Passenger: " + responses[counter] + "\n", false);
                         // Increment counter if possible
                         if(counter+1 < responses.length) {
                             counter++;

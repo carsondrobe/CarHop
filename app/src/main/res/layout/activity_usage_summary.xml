@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UsageSummary">
+    tools:context=".UsageSummaryActivity">
 
     <TextView
         android:id="@+id/usage_summary_title"
@@ -61,60 +61,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usage_summary_horizontalLine1" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/usage_summary_tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usage_summary_financialSummary">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Weekly" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Monthly" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yearly" />
-    </com.google.android.material.tabs.TabLayout>
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="391dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:contentDescription="Graph"
-        app:layout_constraintTop_toBottomOf="@+id/usage_summary_tabLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/expenses_chart" />
-
-<!--    <androidx.viewpager2.widget.ViewPager2-->
-<!--        android:id="@+id/usage_summary_viewPager"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="271dp"-->
-<!--        android:layout_marginTop="1dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/usage_summary_horizontalLine2"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/usage_summary_tabLayout"-->
-<!--        tools:layout_editor_absoluteX="1dp">-->
-<!--</androidx.viewpager2.widget.ViewPager2>-->
-
-    <include layout="@layout/nav_bar" />
-
     <EditText
         android:id="@+id/editTextTextMultiLine"
         style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
@@ -131,5 +77,65 @@
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usage_summary_stats" />
+
+    <ImageView
+        android:id="@+id/usage_summary_graph_image"
+        android:layout_width="377dp"
+        android:layout_height="237dp"
+        android:layout_marginTop="204dp"
+        android:src="@drawable/weekly_expenses"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/usage_summary_TV_weekly"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="142dp"
+        android:layout_marginEnd="2dp"
+        android:onClick="clickedWeekly"
+        android:paddingStart="28dp"
+        android:paddingEnd="0dp"
+        android:paddingTop="10dp"
+        android:background="@drawable/rounded_corner"
+        android:radius="100dp"
+        android:text="Weekly"
+        app:layout_constraintEnd_toStartOf="@+id/usage_summary_TV_monthly"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/usage_summary_TV_monthly"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="142dp"
+        android:background="@drawable/rounded_corner"
+        android:onClick="clickedMonthly"
+        android:paddingStart="25dp"
+        android:paddingTop="10dp"
+        android:text="Monthly"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/usage_summary_TV_yearly"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="142dp"
+        android:layout_marginStart="2dp"
+        android:onClick="clickedYearly"
+        android:paddingStart="28dp"
+        android:paddingEnd="0dp"
+        android:paddingTop="10dp"
+        android:background="@drawable/rounded_corner"
+        android:radius="100dp"
+        android:text="Yearly"
+        app:layout_constraintStart_toEndOf="@+id/usage_summary_TV_monthly"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include layout="@layout/nav_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

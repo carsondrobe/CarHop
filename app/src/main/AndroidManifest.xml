@@ -15,6 +15,15 @@
         android:theme="@style/Theme.CarpoolApp"
         tools:targetApi="31">
         <activity
+            android:name=".PassengerRateDriverActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PassengerAfterBookedMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PassengerAfterReservedMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".PassengerChatActivity"
             android:exported="false" />
         <activity
@@ -39,7 +48,7 @@
             android:name=".DriverTripsSelectedActivity"
             android:exported="false" />
         <activity
-            android:name=".UsageSummary"
+            android:name=".UsageSummaryActivity"
             android:exported="false" />
 
         <meta-data

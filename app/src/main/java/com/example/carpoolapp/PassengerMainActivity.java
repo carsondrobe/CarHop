@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,7 +19,7 @@ public class PassengerMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_main);
         // Initialize Buttons
-        backArrow = findViewById(R.id.passenger_main_ic_backArrow);
+        backArrow = findViewById(R.id.afterBooked_backArrow);
         mainBookRide = findViewById(R.id.passenger_main_btn_BookRideMain);
         smallBookRide = findViewById(R.id.passenger_main_btn_BookRideSmall);
 
@@ -67,7 +66,7 @@ public class PassengerMainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.finances:
-                    intent = new Intent(PassengerMainActivity.this, UsageSummary.class);
+                    intent = new Intent(PassengerMainActivity.this, UsageSummaryActivity.class);
                     intent.putExtra("source", "passenger");
                     startActivity(intent);
                     break;
