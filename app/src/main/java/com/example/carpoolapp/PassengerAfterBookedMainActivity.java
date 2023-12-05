@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import java.util.Locale;
 public class PassengerAfterBookedMainActivity extends AppCompatActivity {
 
     private DatabaseReference ref;
+    Button chatPopup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,8 @@ public class PassengerAfterBookedMainActivity extends AppCompatActivity {
 
         // Initialize Firebase Database reference
         ref = FirebaseDatabase.getInstance().getReference();
+        chatPopup = findViewById(R.id.afterBooked_btn_chat);
+
 
         // Retrieve data from Intent
         Intent intent = getIntent();
@@ -68,6 +72,14 @@ public class PassengerAfterBookedMainActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        // Go to PassengerChatActivity if chatPopup is clicked
+        chatPopup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PassengerAfterBookedMainActivity.this, PassengerChatActivity.class);
+                startActivity(i);
+            }
+        });
 
         // Set up onClickListener for the "Arrived" button
         MaterialButton arrived = findViewById(R.id.afterBooked_btn_arrived);
