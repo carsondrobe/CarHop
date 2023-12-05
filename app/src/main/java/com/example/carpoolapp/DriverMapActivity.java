@@ -238,7 +238,6 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                                     });
 
                                     mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pick up"));
-                                    mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
                                 }
                             }
                         } catch (ParseException | java.text.ParseException e) {

@@ -95,13 +95,20 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/trips_selected_main"
-        android:layout_width="322dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+    <ScrollView
+        android:layout_width="391dp"
+        android:layout_height="463dp"
+        app:layout_constraintBottom_toTopOf="@+id/driver_main_btn_BookANewTrip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/driver_main_ScheduledTrips" />
+        app:layout_constraintTop_toBottomOf="@id/driver_main_ScheduledTrips">
+
+        <LinearLayout
+            android:id="@+id/trips_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
