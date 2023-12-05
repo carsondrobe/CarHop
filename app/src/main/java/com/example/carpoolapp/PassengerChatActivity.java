@@ -33,7 +33,7 @@ public class PassengerChatActivity extends AppCompatActivity {
         send = findViewById(R.id.passenger_chat_btn_send);
         msgContainer = findViewById(R.id.passenger_chat_messageContainer);
         backArrow = findViewById(R.id.passenger_chat_ic_backArrow);
-        // Go to PassengerAfterReservedMainActivity if back arrow is clicked
+        // Go to PassengerAfterBookedMainActivity if back arrow is clicked
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
