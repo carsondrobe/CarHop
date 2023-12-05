@@ -120,10 +120,7 @@ public class DriverMainActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Trip trip = snapshot.getValue(Trip.class);
                     if (trip != null) {
-                        // Create a CardView for each trip
                         CardView tripCard = new CardView(DriverMainActivity.this);
-
-                        // Create a LinearLayout to hold trip details and the 'X' button
                         LinearLayout tripLayout = new LinearLayout(DriverMainActivity.this);
                         tripLayout.setOrientation(LinearLayout.VERTICAL);
                         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -133,7 +130,6 @@ public class DriverMainActivity extends AppCompatActivity {
                         layoutParams.setMargins(16, 16, 16, 16);
                         tripLayout.setLayoutParams(layoutParams);
 
-                        // Add trip details TextView
                         TextView tripDetails = new TextView(DriverMainActivity.this);
                         tripDetails.setText("From: " + trip.getPickup() +
                                 "\nTo: " + trip.getDestination() +
@@ -141,32 +137,48 @@ public class DriverMainActivity extends AppCompatActivity {
                                 "\nDate & Time: " + trip.getDateTime());
                         tripLayout.addView(tripDetails);
 
-                        // Create and configure the 'X' button
+                        LinearLayout buttonLayout = new LinearLayout(DriverMainActivity.this);
+                        buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
+                        buttonLayout.setGravity(Gravity.END); // Aligns children to the right
+
+                        Button chatButton = new Button(DriverMainActivity.this);
+                        LinearLayout.LayoutParams chatButtonParams = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        chatButton.setLayoutParams(chatButtonParams);
+                        chatButton.setText("Chat");
+                        chatButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(DriverMainActivity.this, DriverChatActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        buttonLayout.addView(chatButton);
+
                         Button removeButton = new Button(DriverMainActivity.this);
                         LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT
                         );
-                        buttonParams.gravity = Gravity.END;
                         removeButton.setLayoutParams(buttonParams);
                         removeButton.setText("X");
                         removeButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                // Remove trip from the database and UI
                                 snapshot.getRef().removeValue();
                                 tripsContainer.removeView(tripCard);
                             }
                         });
-                        tripLayout.addView(removeButton);
+                        buttonLayout.addView(removeButton);
 
-                        // Add the trip layout to the CardView
+                        tripLayout.addView(buttonLayout);
                         tripCard.addView(tripLayout);
-
-                        // Add the CardView to the tripsContainer
                         tripsContainer.addView(tripCard);
                     }
                 }
+
             }
 
             @Override
