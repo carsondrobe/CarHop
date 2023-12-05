@@ -20,7 +20,7 @@ public class DriverChatActivity extends AppCompatActivity {
     EditText messageBox;
     LinearLayout msgContainer;
     Button send;
-    String[] responses = {"Hello!", "Yeah, just myself.", "Great, see you soon!"};
+    String[] responses = {"Hello!", "Yeah, myself and 3 others.", "Great, see you soon!"};
     int counter = 0;
     TextView passengerTyping;
     ImageView backArrow;
