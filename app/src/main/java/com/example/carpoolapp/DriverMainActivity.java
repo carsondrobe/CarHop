@@ -2,6 +2,7 @@ package com.example.carpoolapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
@@ -9,9 +10,11 @@ import android.icu.util.Calendar;
 import android.net.ParseException;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +41,7 @@ public class DriverMainActivity extends AppCompatActivity {
     Button bookTrip;
     private ArrayList<Trip> trips;
     TextView trips_text, no_trips_selected;
+    private LinearLayout tripsContainer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +49,8 @@ public class DriverMainActivity extends AppCompatActivity {
         // Initialize Buttons
         backArrow = findViewById(R.id.driver_main_ic_BackArrow);
         bookTrip = findViewById(R.id.driver_main_btn_BookANewTrip);
-        trips_text = findViewById(R.id.trips_selected_main);
         no_trips_selected = findViewById(R.id.driver_main_tv_NoTripsScheduled);
+        tripsContainer = findViewById(R.id.trips_container);
 
         trips = new ArrayList<>();
 
@@ -104,23 +108,77 @@ public class DriverMainActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(trips != null) {
-                    trips.clear();
+                tripsContainer.removeAllViews(); // Clear previous trip boxes
+
+                if (!dataSnapshot.exists()) {
+                    no_trips_selected.setVisibility(View.VISIBLE);
+                    return;
                 }
+
+                no_trips_selected.setVisibility(View.GONE);
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Trip trip = snapshot.getValue(Trip.class);
                     if (trip != null) {
-                        Trip record = new Trip(trip.getPickup(), trip.getDestination(), trip.getDateTime(), trip.getNumPassengers());
-                        trips.add(record);
+                        CardView tripCard = new CardView(DriverMainActivity.this);
+                        LinearLayout tripLayout = new LinearLayout(DriverMainActivity.this);
+                        tripLayout.setOrientation(LinearLayout.VERTICAL);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        layoutParams.setMargins(16, 16, 16, 16);
+                        tripLayout.setLayoutParams(layoutParams);
 
-                        trips_text.setText("From: " + record.getPickup() +
-                                "\n\nTo: " + record.getDestination() +
-                                "\n\nNumber of Passengers: " + record.getNumPassengers() +
-                                "\n\nDate & Time: " + record.getDateTime());
-                        no_trips_selected.setText("");
+                        TextView tripDetails = new TextView(DriverMainActivity.this);
+                        tripDetails.setText("From: " + trip.getPickup() +
+                                "\nTo: " + trip.getDestination() +
+                                "\nNumber of Passengers: " + trip.getNumPassengers() +
+                                "\nDate & Time: " + trip.getDateTime());
+                        tripLayout.addView(tripDetails);
+
+                        LinearLayout buttonLayout = new LinearLayout(DriverMainActivity.this);
+                        buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
+                        buttonLayout.setGravity(Gravity.END); // Aligns children to the right
+
+                        Button chatButton = new Button(DriverMainActivity.this);
+                        LinearLayout.LayoutParams chatButtonParams = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        chatButton.setLayoutParams(chatButtonParams);
+                        chatButton.setText("Chat");
+                        chatButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(DriverMainActivity.this, DriverChatActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        buttonLayout.addView(chatButton);
+
+                        Button removeButton = new Button(DriverMainActivity.this);
+                        LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                        );
+                        removeButton.setLayoutParams(buttonParams);
+                        removeButton.setText("X");
+                        removeButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                snapshot.getRef().removeValue();
+                                tripsContainer.removeView(tripCard);
+                            }
+                        });
+                        buttonLayout.addView(removeButton);
+
+                        tripLayout.addView(buttonLayout);
+                        tripCard.addView(tripLayout);
+                        tripsContainer.addView(tripCard);
                     }
                 }
+
             }
 
             @Override

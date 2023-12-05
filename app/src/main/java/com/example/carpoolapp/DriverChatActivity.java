@@ -38,7 +38,7 @@ public class DriverChatActivity extends AppCompatActivity {
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(DriverChatActivity.this, DriverActiveTripsActivity.class);
+                Intent i = new Intent(DriverChatActivity.this, DriverMainActivity.class);
                 startActivity(i);
             }
         });
