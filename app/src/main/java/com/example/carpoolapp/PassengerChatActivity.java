@@ -37,8 +37,7 @@ public class PassengerChatActivity extends AppCompatActivity {
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(PassengerChatActivity.this, PassengerAfterReservedMainActivity.class);
-                startActivity(i);
+                finish();
             }
         });
         // When send button is clicked, generate response
