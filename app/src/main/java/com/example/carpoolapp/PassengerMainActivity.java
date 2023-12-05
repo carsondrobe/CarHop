@@ -1,19 +1,24 @@
 package com.example.carpoolapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationBarView;
 
 public class PassengerMainActivity extends AppCompatActivity {
     ImageView backArrow;
     Button mainBookRide;
-    Button smallBookRide;
+    View divider;
+    TextView recentRide;
+    CardView recentRideCard;
+    static boolean hasBooked = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +26,11 @@ public class PassengerMainActivity extends AppCompatActivity {
         // Initialize Buttons
         backArrow = findViewById(R.id.afterBooked_backArrow);
         mainBookRide = findViewById(R.id.passenger_main_btn_BookRideMain);
-        smallBookRide = findViewById(R.id.passenger_main_btn_BookRideSmall);
+        divider = findViewById(R.id.passenger_main_horizontalLine2);
+        recentRide = findViewById(R.id.passenger_main_tv_RideHistory);
+        recentRideCard = findViewById(R.id.passenger_main_cv_previousRide);
+
+        set_recent_ride();
 
         // Back to Main Menu onClick back arrow
         backArrow.setOnClickListener(new View.OnClickListener() {
@@ -38,14 +47,20 @@ public class PassengerMainActivity extends AppCompatActivity {
                 startBookRideActivity();
             }
         });
-        smallBookRide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startBookRideActivity();
-            }
-        });
 
         initializeNavBar();
+    }
+
+    private void set_recent_ride() {
+        if (hasBooked) {
+            divider.setVisibility(View.VISIBLE);
+            recentRide.setVisibility(View.VISIBLE);
+            recentRideCard.setVisibility(View.VISIBLE);
+        } else {
+            divider.setVisibility(View.INVISIBLE);
+            recentRide.setVisibility(View.INVISIBLE);
+            recentRideCard.setVisibility(View.INVISIBLE);
+        }
     }
 
     // Launch Book Ride Activity Method for readability
