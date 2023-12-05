@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class PassengerAfterReservedMainActivity extends AppCompatActivity {
     ImageView backArrow;
     private DatabaseReference ref;
+    Button chatPopup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class PassengerAfterReservedMainActivity extends AppCompatActivity {
         // Initialize Buttons
         backArrow = findViewById(R.id.afterBooked_backArrow);
         ref = FirebaseDatabase.getInstance().getReference();
+        chatPopup = findViewById(R.id.afterBooked_btn_chat);
 
         // Back to Main Menu onClick back arrow
         backArrow.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +76,14 @@ public class PassengerAfterReservedMainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        // Go to PassengerChatActivity if chatPopup is clicked
+        chatPopup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PassengerAfterReservedMainActivity.this, PassengerChatActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
     private void deleteRecordFromDatabase(String recordKey){
