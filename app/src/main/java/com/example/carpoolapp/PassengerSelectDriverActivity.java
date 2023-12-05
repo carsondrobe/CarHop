@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.libraries.places.api.Places;
@@ -19,6 +20,7 @@ public class PassengerSelectDriverActivity extends AppCompatActivity {
     DatabaseReference ref;
     DriverInfo selectedDriver;
     MaterialButton confirm;
+    TextView price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,7 @@ public class PassengerSelectDriverActivity extends AppCompatActivity {
         Places.initialize(getApplicationContext(), apikey);
         ref = FirebaseDatabase.getInstance().getReference();
         confirm = findViewById(R.id.activity_passenger_book_ride_btn_select_driver4);
+        price = findViewById(R.id.priceShow);
 
         Intent intent = getIntent();
         int numPassengers = intent.getIntExtra("numPassengers", 0);
@@ -68,6 +71,7 @@ public class PassengerSelectDriverActivity extends AppCompatActivity {
                 btn1.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
                 btn1.setText("SELECTED");
                 selectedDriver = driverInfo1;
+                price.setText("$5");
 
                 btn2.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
                 btn2.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
@@ -82,6 +86,7 @@ public class PassengerSelectDriverActivity extends AppCompatActivity {
                 btn2.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
                 btn2.setText("SELECTED");
                 selectedDriver = driverInfo2;
+                price.setText("$5");
 
                 btn1.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
                 btn1.setTextColor(ContextCompat.getColor(getApplicationContext(), android.R.color.black));
