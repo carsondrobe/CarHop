@@ -87,8 +87,8 @@ public class PassengerAfterBookedMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Display a toast message
-                Toast.makeText(PassengerAfterBookedMainActivity.this,
-                        "Don't Forget to Rate your Driver!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(PassengerAfterBookedMainActivity.this,
+//                        "Don't Forget to Rate your Driver!", Toast.LENGTH_SHORT).show();
 
 
                 // Delete the record from the database
