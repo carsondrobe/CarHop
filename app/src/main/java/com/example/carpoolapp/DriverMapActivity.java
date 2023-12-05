@@ -63,6 +63,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     private int selectedYear, selectedMonth, selectedDay, selectedHour, selectedMinute;
     private static final String TAG = "YourActivity";
     private boolean filter;
+    ImageView backArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
 
         datePicker = findViewById(R.id.datePicker_text);
         filter_btn = findViewById(R.id.filter_btn);
+        backArrow = findViewById(R.id.driver_main_ic_BackArrow);
 
         binding = ActivityDriverMapBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -309,5 +311,9 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         });
 
         dialog.show();
+    }
+    public void backClick(View v) {
+        Intent intent = new Intent(DriverMapActivity.this, DriverMainActivity.class);
+        startActivity(intent);
     }
 }
