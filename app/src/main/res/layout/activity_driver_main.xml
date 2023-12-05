@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#39634100"
     tools:context=".DriverMainActivity">
 
 <TextView
@@ -58,7 +59,7 @@
         android:layout_width="230dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/white"
         android:clickable="true"
         android:focusable="true"

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.net.ParseException;
@@ -136,6 +137,13 @@ public class DriverMainActivity extends AppCompatActivity {
                                 "\nNumber of Passengers: " + trip.getNumPassengers() +
                                 "\nDate & Time: " + trip.getDateTime());
                         tripLayout.addView(tripDetails);
+
+                        TextView tripCost = new TextView(DriverMainActivity.this);
+                        tripCost.setText("+ $5.00");
+                        tripCost.setTextSize(18); // Set text size (adjust as needed)
+                        tripCost.setTypeface(null, Typeface.BOLD); // Set text style to bold
+                        tripCost.setGravity(Gravity.CENTER);
+                        tripLayout.addView(tripCost);
 
                         LinearLayout buttonLayout = new LinearLayout(DriverMainActivity.this);
                         buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
