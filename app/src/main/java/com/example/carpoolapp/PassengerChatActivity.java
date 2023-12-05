@@ -3,6 +3,7 @@ package com.example.carpoolapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -32,11 +33,12 @@ public class PassengerChatActivity extends AppCompatActivity {
         send = findViewById(R.id.passenger_chat_btn_send);
         msgContainer = findViewById(R.id.passenger_chat_messageContainer);
         backArrow = findViewById(R.id.passenger_chat_ic_backArrow);
-        // Go to ... if back arrow is clicked
+        // Go to PassengerAfterReservedMainActivity if back arrow is clicked
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // todo
+                Intent i = new Intent(PassengerChatActivity.this, PassengerAfterReservedMainActivity.class);
+                startActivity(i);
             }
         });
         // When send button is clicked, generate response
@@ -50,7 +52,7 @@ public class PassengerChatActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        driverTyping = displayMessage("DriverName is typing..." + "\n", false);
+                        driverTyping = displayMessage("Driver is typing..." + "\n", false);
                     }
                 }, 1000);
                 // Display the driver response after 3 seconds
@@ -60,7 +62,7 @@ public class PassengerChatActivity extends AppCompatActivity {
                         // Delete passenger typing textview
                         msgContainer.removeView(driverTyping);
                         // Display passenger response
-                        displayMessage("DriverName: " + responses[counter] + "\n", false);
+                        displayMessage("Driver: " + responses[counter] + "\n", false);
                         // Increment counter if possible
                         if(counter+1 < responses.length) {
                             counter++;
