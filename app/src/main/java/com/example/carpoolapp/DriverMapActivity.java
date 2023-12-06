@@ -218,7 +218,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                                             }
                                         });
 
-                                        mMap.addMarker(new MarkerOptions().position(startLatLng));
+                                        mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pickup"));
+                                        mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
                                     }
                                 } else {
                                     Polyline polyline = mMap.addPolyline(new PolylineOptions()
@@ -239,7 +240,8 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
                                         }
                                     });
 
-                                    mMap.addMarker(new MarkerOptions().position(startLatLng));
+                                    mMap.addMarker(new MarkerOptions().position(startLatLng).title("Pickup").flat(true));
+                                    mMap.addMarker(new MarkerOptions().position(endLatLng).title("Drop off"));
                                 }
                             }
                         } catch (ParseException | java.text.ParseException e) {
