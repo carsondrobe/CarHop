@@ -75,7 +75,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         datePicker = findViewById(R.id.datePicker_text);
         filter_btn = findViewById(R.id.filter_btn);
         backArrow = findViewById(R.id.driver_main_ic_BackArrow);
-        initializeNavBar();
+        //initializeNavBar();
 
         binding = ActivityDriverMapBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -107,6 +107,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         googleMap.getUiSettings().setZoomControlsEnabled(true);
 
         retrieveRecordsFromDatabase();
+        initializeNavBar();
 
     }
 
