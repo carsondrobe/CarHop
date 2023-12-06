@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class PassengerMainActivity extends AppCompatActivity {
@@ -19,6 +21,8 @@ public class PassengerMainActivity extends AppCompatActivity {
     TextView recentRide;
     CardView recentRideCard;
     static boolean hasBooked = false;
+    MaterialButton viewAccountButton;
+    ImageView logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,8 @@ public class PassengerMainActivity extends AppCompatActivity {
         divider = findViewById(R.id.passenger_main_horizontalLine2);
         recentRide = findViewById(R.id.passenger_main_tv_RideHistory);
         recentRideCard = findViewById(R.id.passenger_main_cv_previousRide);
+        viewAccountButton = findViewById(R.id.passenger_main_btn_ViewAccount);
+        logo = findViewById(R.id.passenger_main_logoIMG);
 
         set_recent_ride();
 
@@ -47,6 +53,14 @@ public class PassengerMainActivity extends AppCompatActivity {
                 startBookRideActivity();
             }
         });
+        viewAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PassengerMainActivity.this, UsageSummaryActivity.class);
+                intent.putExtra("source", "passenger");
+                startActivity(intent);
+            }
+        });
 
         initializeNavBar();
     }
@@ -56,17 +70,20 @@ public class PassengerMainActivity extends AppCompatActivity {
             divider.setVisibility(View.VISIBLE);
             recentRide.setVisibility(View.VISIBLE);
             recentRideCard.setVisibility(View.VISIBLE);
+            viewAccountButton.setVisibility(View.INVISIBLE);
+            logo.setVisibility(View.INVISIBLE);
         } else {
             divider.setVisibility(View.INVISIBLE);
             recentRide.setVisibility(View.INVISIBLE);
             recentRideCard.setVisibility(View.INVISIBLE);
+            viewAccountButton.setVisibility(View.VISIBLE);
+            logo.setVisibility(View.VISIBLE);
         }
     }
 
     // Launch Book Ride Activity Method for readability
     void startBookRideActivity(){
         Intent intent = new Intent(PassengerMainActivity.this, PassengerBookRideActivity.class);
-//        Intent intent = new Intent(PassengerMainActivity.this, PassengerAfterBookedMainActivity.class);
         startActivity(intent);
     }
     private void initializeNavBar(){
