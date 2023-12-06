@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/titleTextView"
+        android:id="@+id/titleTextView_help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
@@ -28,7 +28,7 @@
         android:paddingBottom="8dp"
         android:text="From: Pickup Address"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+        app:layout_constraintTop_toBottomOf="@id/titleTextView_help" />
 
     <TextView
         android:id="@+id/destinationTextView"
@@ -39,7 +39,7 @@
         android:paddingBottom="8dp"
         android:text="To: Destination Address"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pickupTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/pickupTextView" />
 
     <TextView
         android:id="@+id/passengersTextView"

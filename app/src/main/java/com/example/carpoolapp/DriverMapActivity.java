@@ -6,21 +6,17 @@ import androidx.fragment.app.FragmentActivity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.ParseException;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -30,7 +26,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.example.carpoolapp.databinding.ActivityDriverMapBinding;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -43,12 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DatabaseError;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -284,7 +274,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.driver_map_popup);
 
-        TextView pickupTextView = dialog.findViewById(R.id.pickupTextView);
+        TextView pickupTextView = dialog.findViewById(R.id.passengersTextView);
         TextView destinationTextView = dialog.findViewById(R.id.destinationTextView);
         TextView passengersTextView = dialog.findViewById(R.id.passengersTextView);
         TextView dateTextView = dialog.findViewById(R.id.dateTextView);
@@ -339,5 +329,18 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
             }
             return true;
         });
+    }
+    public void onHelpButtonClick(View view) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.driver_help_popup);
+
+        TextView helpText = dialog.findViewById(R.id.help_textView);
+        String help = "The markers on the map represent where a passenger would like to be picked up and dropped off." +
+                " Click on a marker to see if it is a pickup location or a drop off location.\n\n" +
+                "The black lines on the map show the path between the pickup and drop off locations for each passenger." +
+                " Click on a black line to select the trip.";
+        helpText.setText(help);
+
+        dialog.show();
     }
 }
