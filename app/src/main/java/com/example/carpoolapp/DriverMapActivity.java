@@ -36,6 +36,7 @@ import com.example.carpoolapp.databinding.ActivityDriverMapBinding;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -74,6 +75,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         datePicker = findViewById(R.id.datePicker_text);
         filter_btn = findViewById(R.id.filter_btn);
         backArrow = findViewById(R.id.driver_main_ic_BackArrow);
+        initializeNavBar();
 
         binding = ActivityDriverMapBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -314,5 +316,26 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
     public void backClick(View v) {
         Intent intent = new Intent(DriverMapActivity.this, DriverMainActivity.class);
         startActivity(intent);
+    }
+    private void initializeNavBar(){
+        NavigationBarView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Intent intent;
+            switch (item.getItemId()){
+                case R.id.home:
+                    intent = new Intent(DriverMapActivity.this, DriverMainActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.book:
+                    break;
+                case R.id.finances:
+                    intent = new Intent(DriverMapActivity.this, UsageSummaryActivity.class);
+                    intent.putExtra("source", "driver");
+                    startActivity(intent);
+                    break;
+            }
+            return true;
+        });
     }
 }

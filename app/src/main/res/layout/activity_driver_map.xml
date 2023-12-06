@@ -62,5 +62,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/map" />
 
+    <include layout="@layout/nav_bar" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

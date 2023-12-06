@@ -57,7 +57,7 @@ public class UsageSummaryActivity extends AppCompatActivity {
                     if (isPassenger)
                         intent = new Intent(UsageSummaryActivity.this, PassengerBookRideActivity.class);
                     else
-                        intent = new Intent(UsageSummaryActivity.this, DriverBookTripActivity.class);
+                        intent = new Intent(UsageSummaryActivity.this, DriverMapActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.finances:
