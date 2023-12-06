@@ -91,7 +91,7 @@ public class DriverMainActivity extends AppCompatActivity {
                 case R.id.home:
                     break;
                 case R.id.book:
-                    intent = new Intent(DriverMainActivity.this, DriverBookTripActivity.class);
+                    intent = new Intent(DriverMainActivity.this, DriverMapActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.finances:

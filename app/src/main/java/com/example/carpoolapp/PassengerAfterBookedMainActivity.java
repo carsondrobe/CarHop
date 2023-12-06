@@ -77,6 +77,7 @@ public class PassengerAfterBookedMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(PassengerAfterBookedMainActivity.this, PassengerChatActivity.class);
+                intent.putExtra("driverName", driverName);
                 startActivity(i);
             }
         });
@@ -95,11 +96,12 @@ public class PassengerAfterBookedMainActivity extends AppCompatActivity {
                 deleteRecordFromDatabase(recordKey);
 
                 // Start the main activity
-                Intent intent = new Intent(PassengerAfterBookedMainActivity.this, PassengerMainActivity.class);
+                Intent intent = new Intent(PassengerAfterBookedMainActivity.this, PassengerRateDriverActivity.class);
                 intent.putExtra("driverName", driverName);
                 intent.putExtra("driverRating", driverRating);
                 intent.putExtra("destination", destinationPlaceName);
                 intent.putExtra("pickup", pickupPlaceName);
+                PassengerMainActivity.hasBooked = true;
                 startActivity(intent);
                 finish();
             }

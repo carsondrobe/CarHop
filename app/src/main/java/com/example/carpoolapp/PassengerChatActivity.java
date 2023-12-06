@@ -24,6 +24,8 @@ public class PassengerChatActivity extends AppCompatActivity {
     int counter = 0;
     TextView driverTyping;
     ImageView backArrow;
+    TextView driverNameAtTop;
+    String driverName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,16 @@ public class PassengerChatActivity extends AppCompatActivity {
         send = findViewById(R.id.passenger_chat_btn_send);
         msgContainer = findViewById(R.id.passenger_chat_messageContainer);
         backArrow = findViewById(R.id.passenger_chat_ic_backArrow);
-        // Go to PassengerAfterReservedMainActivity if back arrow is clicked
+        // Set driverName
+        Intent intent = getIntent();
+        driverName = intent.getStringExtra("driverName");
+        if(driverName == null) {
+            driverName = "John Doe";
+        }
+        // Set driver name at top of chat
+        driverNameAtTop = findViewById(R.id.passenger_chat_tv_driverName);
+        driverNameAtTop.setText(driverName);
+        // Go to PassengerAfterBookedMainActivity if back arrow is clicked
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +62,7 @@ public class PassengerChatActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        driverTyping = displayMessage("Driver is typing..." + "\n", false);
+                        driverTyping = displayMessage(driverName + " is typing..." + "\n", false);
                     }
                 }, 1000);
                 // Display the driver response after 3 seconds
@@ -61,7 +72,7 @@ public class PassengerChatActivity extends AppCompatActivity {
                         // Delete passenger typing textview
                         msgContainer.removeView(driverTyping);
                         // Display passenger response
-                        displayMessage("Driver: " + responses[counter] + "\n", false);
+                        displayMessage(driverName + ": " + responses[counter] + "\n", false);
                         // Increment counter if possible
                         if(counter+1 < responses.length) {
                             counter++;
