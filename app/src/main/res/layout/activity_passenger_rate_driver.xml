@@ -6,71 +6,218 @@
     android:layout_height="match_parent"
     tools:context=".PassengerRateDriverActivity">
 
+    <ImageView
+        android:id="@+id/rateDriver_star1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="88dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="88dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="139dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star5"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="139dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star6"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="139dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star7"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="190dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star8"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="190dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star9"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="190dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star10"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="190dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star11"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="241dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star12"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="241dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star13"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="241dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star14"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="241dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/rateDriver_star15"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="241dp"
+        app:layout_constraintStart_toEndOf="@+id/rateDriver_radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver"
+        app:srcCompat="@drawable/star" />
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/rateDriver_tv_thankyou"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="87dp"
         android:text="Thanks for Choosing RideHop!"
         android:textAlignment="center"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_img_logo" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/rateDriver_tv_rateDriver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="32dp"
         android:text="Please Rate Your Driver:"
-        android:textSize="28sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_thankyou" />
+
+    <RadioGroup
+        android:id="@+id/rateDriver_radioGroup"
+        android:layout_width="78dp"
+        android:layout_height="258dp"
+        android:layout_marginStart="-60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="60dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_tv_rateDriver">
 
         <RadioButton
-            android:id="@+id/radioButton1"
+            android:id="@+id/rateDriver_rb_1star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="1" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/rateDriver_rb_2star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="2" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/rateDriver_rb_3star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="3" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/rateDriver_rb_4star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="4" />
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/rateDriver_rb_5star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
@@ -78,22 +225,57 @@
     </RadioGroup>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/afterBooked_btn_arrived"
+        android:id="@+id/rateDriver_skip"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:backgroundTint="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Skip"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_submit"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/rateDriver_submit"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="182dp"
         android:layout_height="68dp"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="35dp"
         android:backgroundTint="@color/white"
         android:clickable="true"
         android:focusable="true"
-        android:text="Close"
+        android:text="Submit"
         android:textColor="@color/black"
-        android:textSize="25sp"
+        android:textSize="24sp"
         app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rateDriver_radioGroup"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
+
+    <ImageView
+        android:id="@+id/rateDriver_img_logo"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginEnd="130dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/main_screen_logo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

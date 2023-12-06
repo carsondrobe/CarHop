@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class DriverChatActivity extends AppCompatActivity {
 
     // Create variables
@@ -24,6 +26,8 @@ public class DriverChatActivity extends AppCompatActivity {
     int counter = 0;
     TextView passengerTyping;
     ImageView backArrow;
+    TextView passengerNameAtTop;
+    String passengerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,15 @@ public class DriverChatActivity extends AppCompatActivity {
         send = findViewById(R.id.driver_chat_btn_send);
         msgContainer = findViewById(R.id.driver_chat_messageContainer);
         backArrow = findViewById(R.id.driver_chat_ic_backArrow);
+        // Set passengerName
+        Intent intent = getIntent();
+        passengerName = intent.getStringExtra("passengerName");
+        if(passengerName == null) {
+            passengerName = "John Doe";
+        }
+        // Set passenger name at top of chat
+        passengerNameAtTop = findViewById(R.id.driver_chat_tv_passengerName);
+        passengerNameAtTop.setText(passengerName);
         // Go to DriverActiveTripsActivity if back arrow is clicked
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +65,7 @@ public class DriverChatActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        passengerTyping = displayMessage("Passenger is typing..." + "\n", false);
+                        passengerTyping = displayMessage(passengerName + " is typing..." + "\n", false);
                     }
                 }, 1000);
                 // Display the passenger response after 3 seconds
@@ -62,7 +75,7 @@ public class DriverChatActivity extends AppCompatActivity {
                         // Delete passenger typing textview
                         msgContainer.removeView(passengerTyping);
                         // Display passenger response
-                        displayMessage("Passenger: " + responses[counter] + "\n", false);
+                        displayMessage(passengerName + ": " + responses[counter] + "\n", false);
                         // Increment counter if possible
                         if(counter+1 < responses.length) {
                             counter++;
