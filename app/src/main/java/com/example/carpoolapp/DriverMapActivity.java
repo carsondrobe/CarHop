@@ -274,7 +274,7 @@ public class DriverMapActivity extends FragmentActivity implements OnMapReadyCal
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.driver_map_popup);
 
-        TextView pickupTextView = dialog.findViewById(R.id.passengersTextView);
+        TextView pickupTextView = dialog.findViewById(R.id.pickupTextView);
         TextView destinationTextView = dialog.findViewById(R.id.destinationTextView);
         TextView passengersTextView = dialog.findViewById(R.id.passengersTextView);
         TextView dateTextView = dialog.findViewById(R.id.dateTextView);
