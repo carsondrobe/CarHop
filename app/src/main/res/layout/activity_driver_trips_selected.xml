@@ -16,7 +16,7 @@
         android:backgroundTint="@color/white"
         android:clickable="true"
         android:focusable="true"
-        android:text="Confirm Trips"
+        android:text="Confirm Trip"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:cornerRadius="8dp"
