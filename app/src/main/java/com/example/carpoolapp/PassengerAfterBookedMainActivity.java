@@ -101,6 +101,7 @@ public class PassengerAfterBookedMainActivity extends AppCompatActivity {
                 intent.putExtra("driverRating", driverRating);
                 intent.putExtra("destination", destinationPlaceName);
                 intent.putExtra("pickup", pickupPlaceName);
+                PassengerMainActivity.hasBooked = true;
                 startActivity(intent);
                 finish();
             }
