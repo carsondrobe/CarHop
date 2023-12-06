@@ -43,6 +43,8 @@ public class DriverActiveTripsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(DriverActiveTripsActivity.this, DriverChatActivity.class);
+                String driverName = "John Doe";
+                i.putExtra("driverName", driverName);
                 startActivity(i);
             }
         });
