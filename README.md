@@ -3,6 +3,8 @@
 ## Overview
 CarHop is a carpooling app that benefits both drivers and passengers. Our goal was to create a unique carpooling experience, providing an affordable option for passengers, as well as an easy way for drivers to make some money off of trips they are already taking regularly. Overall, we believe CarHop provides a friendly UI experience that could scale to a legitimate carpooling app.
 
+[![Video](https://img.youtube.com/vi/f7qbRexCu5g/maxresdefault.jpg)](https://youtu.be/f7qbRexCu5g?si=SNGS8AyF-CKl-A1a)
+
 ## Features
 ### Passenger Ride Request
 Passengers request a ride by providing departure location, time of departure, and destination. The passenger also has the option to select a preference from a list of available drivers or remove their ride before the driver’s acceptance. 
