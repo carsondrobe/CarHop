@@ -12,8 +12,8 @@ Drivers can search for rides based on different criteria (e.g., departure and de
 Allows text chatting once the driver accepts a ride and the driver and passenger are linked via a ride. This allows for seamless communication necessities such as confirming certain details and locating each other.
 ### App Usage Summary
 Integrated an app usage summary, where both drivers and passengers can view their financial records (weekly, monthly and yearly) concerning how much money they have spent on the app or how much money they have made on the app. 
-### Driver Search for Rides
-Implemented a review system, where passengers can rate their driver based on their ride experience. 
+### Rating System
+Implemented a rating system, where passengers can rate their driver based on their ride experience. 
 
 ## Technology Stack
 Programming Language: Java
