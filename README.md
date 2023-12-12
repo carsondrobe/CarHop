@@ -17,7 +17,9 @@ Implemented a rating system, where passengers can rate their driver based on the
 
 ## Technology Stack
 Programming Language: Java
+
 Database: Firebase Realtime Database
+
 Mapping and Navigation: Google Maps API and Google Places API
 
 ## Emulator
